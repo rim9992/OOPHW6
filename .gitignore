@@ -1,3 +1,7 @@
+# Custom Configuration
+nbproject/
+
+
 # Compiled Object files
 *.slo
 *.lo
