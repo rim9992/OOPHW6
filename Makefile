@@ -31,9 +31,10 @@ clean:
 
 
 # Tests
-testAll: testRobotPart testLocomotor
+testAll: testRobotPart testLocomotor testBattery
 	./testRobotPart.out
 	./testLocomotor.out
+	./testBattery.out
 
 testRobotPart: RobotPart.o Locomotor.o
 	$(CXX) $(CXXFLAGS) -w -c RobotPartTest.cpp
