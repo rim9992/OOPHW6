@@ -6,7 +6,7 @@
 #include <stdexcept>
 
 #pragma once
-#include "Arm.h"
+#include "RobotPart.h"
 
 class Arm: public RobotPart {
 
