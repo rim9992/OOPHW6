@@ -5,15 +5,17 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include "RobotPart.h"
 
 using namespace std;
 
-class Battery{
+class Battery:public RobotPart{
 
 public: 
     
-      Battery(double Energy, double MaxPower) : energy(Energy), maxPower(MaxPower){}
-      
+	Battery(string Name, int PartNumber, ComponentType comp, double Weight, double Cost, string Description, double Energy, double Power) :
+		RobotPart(Name, PartNumber, comp, Weight, Cost, Description),energy(Energy),maxPower(Power) {};
+
       double getEnergy();
       double getMaxPower();
       
