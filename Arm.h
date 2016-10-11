@@ -6,19 +6,21 @@
 #include <stdexcept>
 
 #pragma once
-#include "Arm.h"
+#include "RobotPart.h"
 
 class Arm: public RobotPart {
 
 public:
 	Arm(string Name, int PartNumber, ComponentType comp, double Weight, double Cost, string Description, int speed) : 
-		RobotPart(Name, PartNumber, comp, Weight, Cost, Description), maxSpeed(speed) {};
+		RobotPart(Name, PartNumber, comp, Weight, Cost, Description), Speed(speed) {};
 	
 		
 	
 
 	int powerConsumed(int speed);
 
+private:
+	int Speed;
 
 
 };
