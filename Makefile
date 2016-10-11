@@ -14,8 +14,8 @@ debug: executable
 
 rebuild: clean executable
 
-executable: main.o RobotPart.o Locomotor.o Battery.o Arm.o Head.o
-	$(CXX) $(CXXFLAGS) main.o RobotPart.o Locomotor.o Battery.o Arm.o Head.o
+executable: main.o RobotPart.o Locomotor.o Battery.o Arm.o
+	$(CXX) $(CXXFLAGS) main.o RobotPart.o Locomotor.o Battery.o Arm.o
 	
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -w -c main.cpp
@@ -27,8 +27,6 @@ Battery.o: Battery.cpp
 	$(CXX) $(CXXFLAGS) -w -c Battery.cpp
 Arm.o: Arm.cpp
 	$(CXX) $(CXXFLAGS) -w -c Arm.cpp
-Head.o: Head.cpp
-	$(CXX) $(CXXFLAGS) -w -c Head.cpp
 	
 clean:
 	rm -f *.o *.out
@@ -49,9 +47,6 @@ testLocomotor: Locomotor.o RobotPart.o
 testBattery: Battery.o
 	$(CXX) $(CXXFLAGS) -w -c BatteryTest.cpp
 	$(CXX) $(CXXFLAGS) -o testBattery.out Battery.o BatteryTest.o
-testArm: Arm.o Head.o
-	$(CXX) $(CXXFLAGS) -w -c armheadtest.cpp
-	$(CXX) $(CXXFLAGS) -o testArm.out Arm.o Head.o armheadtest.o
-testHead: Arm.o Head.o
+testArm: Arm.o
 	$(CXX) $(CXXFLAGS) -w -c armheadtest.cpp
 	$(CXX) $(CXXFLAGS) -o testArm.out Arm.o Head.o armheadtest.o
