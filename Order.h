@@ -14,7 +14,7 @@
  class Order{
    public:
     Order(int number = 1000, string stat = "Shipping")
-    : OrderNumber = number, Status = stat{};
+    : OrderNumber(number), Status(stat) {}
 
     void choose_customer(Customer cust);
     void choose_salesAssoc(SalesAssociate salesAssoc);
