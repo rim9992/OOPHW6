@@ -7,6 +7,8 @@
 
 CXXFLAGS = -std=c++11
 
+OFILES = main.o RobotPart.o Locomotor.o Battery.o Arm.o Torso.o Customer.o SalesAssociate.o RobotModel.o
+
 all: executable
 
 debug: CXXFLAGS += -g
@@ -14,19 +16,29 @@ debug: executable
 
 rebuild: clean executable
 
-executable: main.o RobotPart.o Locomotor.o Battery.o Arm.o
-	$(CXX) $(CXXFLAGS) main.o RobotPart.o Locomotor.o Battery.o Arm.o
+executable: $(OFILES)
+	$(CXX) $(CXXFLAGS) $(OFILES)
 	
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -w -c main.cpp
-RobotPart.o: RobotPart.cpp
+RobotPart.o: RobotPart.cpp RobotPart.h
 	$(CXX) $(CXXFLAGS) -w -c RobotPart.cpp
-Locomotor.o: Locomotor.cpp
+Locomotor.o: Locomotor.cpp Locomotor.h
 	$(CXX) $(CXXFLAGS) -w -c Locomotor.cpp
-Battery.o: Battery.cpp
+Battery.o: Battery.cpp Battery.h
 	$(CXX) $(CXXFLAGS) -w -c Battery.cpp
-Arm.o: Arm.cpp
+Arm.o: Arm.cpp Arm.h
 	$(CXX) $(CXXFLAGS) -w -c Arm.cpp
+Torso.o: Torso.cpp Torso.h
+	$(CXX) $(CXXFLAGS) -w -c Torso.cpp
+Customer.o: Customer.cpp Customer.h Order.o
+	$(CXX) $(CXXFLAGS) -w -c Customer.cpp
+SalesAssociate.o: SalesAssociate.cpp SalesAssociate.h Order.o
+	$(CXX) $(CXXFLAGS) -w -c SalesAssociate.cpp
+RobotModel.o: RobotModel.cpp RobotModel.h Head.h Locomotor.o Arm.o Battery.o Torso.o
+	$(CXX) $(CXXFLAGS) -w -c RobotModel.cpp
+Order.o: Order.cpp Order.h RobotModel.o Customer.o SalesAssociate.o
+	$(CXX) $(CXXFLAGS) -w -c Orders.cpp
 	
 clean:
 	rm -f *.o *.out
