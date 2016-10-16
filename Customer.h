@@ -12,27 +12,30 @@
 
 using namespace std;
 
+//class Order;
+
 class Customer {
 
 public:
 
-	Customer(string Name, string CustomerNum, double Wallet) : name(Name), customerNumber(CustomerNum), wallet(Wallet) {}
+	Customer(string Name, int CustomerNum) : name(Name), customerNumber(CustomerNum) {}
 
-	string to_string();
-
+	string cust_to_string();
 	string getName();
-	string getCustomerNumber();
+	int getCustomerNumber();
 	double getWallet();
 	void add_order(Order info);
 
 private:
 
 	string name;
-	string customerNumber;
+	int customerNumber;
 	double wallet;
-	vector<Order> orders;
+	vector<int> orders;
 	
 
 };
+
+
 
 #endif
