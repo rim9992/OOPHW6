@@ -9,6 +9,9 @@
 
 #include "RobotPart.h"
 #include "RobotModel.h"
+#include "Order.h"
+#include "SalesAssociate.h"
+#include "Customer.h"
 
 using namespace std;
 
@@ -23,7 +26,8 @@ public:
 	void viewLocomotors(vector<Locomotor> list);
 	void viewTorsos(vector<Torso> list);
 	void viewModels(vector<RobotModel> list);
-
+	void viewCustomers(vector<Customer> list);
+	void viewAssociates(vector<SalesAssociate> list);
 	void printMenu();
 
 };
