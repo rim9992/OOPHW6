@@ -1,5 +1,5 @@
 #include "SalesAssociate.h"
-#include "Order.h"
+
 
 
 string SalesAssociate::getName() {
@@ -7,7 +7,7 @@ string SalesAssociate::getName() {
 	return name;
 }
 
-string SalesAssociate::getEmployeeNumber() {
+int SalesAssociate::getEmployeeNumber() {
 
 	return employeeNumber;
 
@@ -15,10 +15,10 @@ string SalesAssociate::getEmployeeNumber() {
 
 void SalesAssociate::add_order(Order info) {
 
-	orders.push_back(info);
+	orders.push_back(info.get_num());
 }
 
-string SalesAssociate::to_string() {
+string SalesAssociate::assoc_to_string() {
 	
-	return name + " (" + employeeNumber + ")";
+	return name + " (" + to_string(employeeNumber) + ")\n";
 }
