@@ -1,38 +1,42 @@
-#ifndef _SALESASSOCIATE_H_
-#define _SALESASSOCIATE_H_
+#ifndef _SALESASSOCIATE_H
+#define _SALESASSOCIATE_H
 #pragma once
-
-#include "Order.h"
 
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
-#include <string>
 #include <vector>
+#include <string>
 
 using namespace std;
+
+
+#include "Order.h"
+
 
 class SalesAssociate {
 
 public:
 
-	SalesAssociate(string Name, string employeeNum) : name(Name), employeeNumber(employeeNum) {}
-	SalesAssociate() : name("unknown"), employeeNumber("unknown") {}
+	SalesAssociate(string Name, int employeeNum) : name(Name), employeeNumber(employeeNum) {}
+	SalesAssociate() : name("unknown"), employeeNumber(0) {}
 	
-	string to_string();
+	string assoc_to_string();
 
 	string getName();
-	string getEmployeeNumber();
+	int getEmployeeNumber();
 	void add_order(Order info);
 
 private:
 
 	string name;
-	string employeeNumber;
-	vector<Order> orders;
+	int employeeNumber;
+	vector<int> orders;
 
 
 };
+
+
 
 #endif
 
