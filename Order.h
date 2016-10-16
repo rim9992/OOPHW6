@@ -1,43 +1,55 @@
- #ifndef __ORDER_H
- #define __ORDER_H 2016
- #include <iostream>
- #include <string>
-#include <iomanip>
-#include <vector>
-#include<time.h>
-#include "RobotModel.h"
-#include "Customer.h"
-#include "SalesAssociate.h"
+#ifndef _ORDER_H
+#define _ORDER_H
+#pragma once
 
- using namespace std;
+#include <iostream>
+#include <fstream>
+#include <stdexcept>
+#include <time.h>
+
+using namespace std;
+
+#include "RobotModel.h"
+
+class SalesAssociate;
+class Customer;
+
 
  class Order{
    public:
-    Order(int number = 1000, string stat = "Shipping")
-    : OrderNumber(number), Status(stat) {}
 
-    void choose_customer(Customer cust);
-    void choose_salesAssoc(SalesAssociate salesAssoc);
-    void choose_RobotModel(RobotModel robo);
+	   Order(int number, string stat)
+		   : OrderNumber(number), Status(stat) {};
+
+	   Order(int number) : OrderNumber(number) { Status = "Shipping"; };
+
+    void choose_customer(int cust);
+    void choose_salesAssoc(int salesAssoc);
+	void choose_RobotModel(RobotModel robo);
     void get_date();
+	int get_num();
 
-    double robotPrice(RobotModel robo);
-    double calculateShipping();
-    double calculateTax();
-    double totalPrice();
+    void calculateShipping();
+    void calculateTax();
+	double totalPrice();
+
 
    private:
     string date;
-    string customers;
-    string salesassocs;
-    string robotmodels;
+    int customers;
+    int salesassocs;
+	double weight = 0;
+    vector<int> robotmodels;
     string Status;
     int OrderNumber;
 
-    double Robot_Price;
-    double Shipping;
-    double Tax;
-    double Total;
+	double Robot_Price = 0;;
+	double shipping = 0;
+	double subtotal=0;
+    double tax=0;
+    double total = 0;
 
  };
+
+
  #endif
