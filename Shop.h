@@ -16,6 +16,9 @@ using namespace std;
 #include "RobotModel.h"
 #include "RobotPart.h"
 #include "View.h"
+#include "Order.h"
+#include "SalesAssociate.h"
+#include "Customer.h"
 
 
 
@@ -30,10 +33,14 @@ public:
 	Locomotor searchLocomotors(int partNum);
 	Torso searchTorsos(int partNum);
 	Battery searchBattery(int partNum);
+	RobotModel searchModels(int partNum);
 
 
 	void createNewPart();
 	void createNewModel();
+	void createCustomer();
+	void createAssociate();
+	void createOrder();
 	class partNotFound {};
 	class negativeNumber {};
 	void cli();
@@ -48,6 +55,9 @@ private:
 	vector<Battery> batteries;
 	vector<Torso> torsos;
 	vector<RobotModel> models;
+	vector<Customer> customers;
+	vector<SalesAssociate> associates;
+	vector<Order> orders;
 	View view;
 
 
