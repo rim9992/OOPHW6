@@ -17,12 +17,29 @@ void Shop::cli()
 			createNewModel();
 		else if (choice == 3)
 			createNewPart();
+		else if (choice == 4)
+			createCustomer();
+		else if (choice == 5)
+			createAssociate();
+		else if (choice == 6)
+			createOrder();
 
 
 	}
 }
 
+RobotModel Shop::searchModels(int partNum)
+{
+	int length = models.size();
+	int i;
+	for (i = 0; i < length; i++)
+	{
+		if (models[i].getModelNumber() == partNum)
+			return models[i];
+	}
 
+	throw partNotFound();
+}
 
 Head Shop::searchHeads(int partNum) {
 
@@ -95,8 +112,8 @@ int Shop::checkInt(string val)
 		result = stoi(val);
 		if (result < 0) throw negativeNumber();
 	}
-	catch (invalid_argument& e) { cout << "Must enter a Integer\n"; return NULL; }
-	catch (negativeNumber& e) { cout << "Must be a positive Integer\n"; return NULL; }
+	catch (invalid_argument& e) { cout << "Must enter a Integer\n"; return -1; }
+	catch (negativeNumber& e) { cout << "Must be a positive Integer\n"; return -1; }
 
 	return result;
 	
@@ -108,15 +125,12 @@ double Shop::checkDub(string val)
 		result = stod(val);
 		if (result < 0) throw negativeNumber();
 	}
-	catch (invalid_argument& e) { cout << "Must enter a number\n"; return NULL; }
-	catch (negativeNumber& e) { cout << "Must be a positive number\n"; return NULL; }
+	catch (invalid_argument& e) { cout << "Must enter a number\n"; return -1; }
+	catch (negativeNumber& e) { cout << "Must be a positive number\n"; return -1; }
 
 	return result;
 
 }
-
-
-
 
 
 void Shop::createNewPart() 
@@ -262,7 +276,6 @@ void Shop::createNewPart()
 
 }
 
-//the skip option when choosing a part does not work
 void Shop::createNewModel()
 {
 	string name;
@@ -271,7 +284,7 @@ void Shop::createNewModel()
 	bool tors = false;
 
 	double price = NULL;
-	int partNumber = NULL;
+	int partNumber = -1;
 	int num = NULL;
 	cout << "Enter Name:";
 	getline(cin, name, ':');
@@ -292,19 +305,22 @@ void Shop::createNewModel()
 
 	while (!partAdded)
 	{
+		partNumber = -1;
 		while (partNumber == -1)
 		{
 			cout << "Enter the part number of the desired head, 0 to skip:";
 			cin >> value;
 			partNumber = checkInt(value);
-			
-			
 		}
 
 		
-		if (partNumber == 0) partAdded = true;		
-		
-		if (partNumber != 0)
+		if (partNumber == 0)
+		{
+			partAdded = true;
+
+		}
+						
+		else
 		{
 			try
 			{
@@ -314,92 +330,95 @@ void Shop::createNewModel()
 			}
 			catch (partNotFound& e) { cout << "The part Number was not found in the data base"; }
 		}
-
 		
 	}
 
-	partNumber = NULL;
 	partAdded = false;
 	//choosing the Arms
 
 	view.viewArms(arms);
-	while (partNumber == NULL)
-	{
-		cout << "Enter the part number of the desired arm, 0 to skip:";
-		cin >> value;
-		partNumber = checkInt(value);
-	}
-
-	if (partNumber != 0)
-	{
-
-		int armNum = NULL;
-		while (armNum == NULL)
-		{
-			cout << "Enter the number of arms, either 1 or 2:";
-			cin >> value;
-			armNum = checkInt(value);
-			if (armNum != 1 && armNum != 2) { cout << "Has to be either 1 or 2\n"; armNum = NULL; }
-		}
+	int armNum = NULL;
+		
 
 		while (!partAdded)
 		{
-			try
+			partNumber = -1;
+			while (partNumber == -1)
 			{
-				Arm arm = searchArms(partNumber);
-				newModel.addArm(arm);
-				if (armNum == 2) newModel.addArm(arm);
-				partAdded = true;
+				std::cout << "Enter the part number of the desired arm, 0 to skip:";
+				cin >> value;
+				partNumber = checkInt(value);
 			}
-			catch (partNotFound& e) { cout << "The part Number was not found in the data base"; }
+
+			if (partNumber == 0)
+				partAdded = true;
+
+			else
+			{
+				try
+				{
+					Arm arm = searchArms(partNumber);
+					newModel.addArm(arm);
+					if (armNum == 2) newModel.addArm(arm);
+					partAdded = true;
+				}
+				catch (partNotFound& e) { cout << "The part Number was not found in the data base"; }
+			}			
 
 
-		}
-	}
+		}	
+
+		
 	
-	partNumber = NULL;
+
 	partAdded = false;
 	//choosing the locomotor
 
 	view.viewLocomotors(locomotors);
 
 
-	while (partNumber == NULL)
-	{
-		cout << "Enter the part number of the desired locomotor, 0 to skip:";
-		cin >> value;
-		partNumber = checkInt(value);
-	}
-	if (partNumber != 0)
-	{
 		while (!partAdded)
 		{
-			try
+			partNumber =-1;
+			while (partNumber == -1)
 			{
-				Locomotor loco = searchLocomotors(partNumber);
-				newModel.setLocomotor(loco);
-				partAdded = true;
+				cout << "Enter the part number of the desired locomotor, 0 to skip:";
+				cin >> value;
+				partNumber = checkInt(value);
 			}
-			catch (partNotFound& e) { cout << "The part Number was not found in the data base"; }
-
-		}
+			if (partNumber == 0)
+				partAdded = true;
+			else
+			{
+				try
+				{
+					Locomotor loco = searchLocomotors(partNumber);
+					newModel.setLocomotor(loco);
+					partAdded = true;
+				}
+				catch (partNotFound& e) { cout << "The part Number was not found in the data base"; }
+			}
+					
 	}
 
-	partNumber = NULL;
+
 	partAdded = false;
 	//choosing the Torso
 	view.viewTorsos(torsos);
 
 	while (!partAdded)
 	{
-		while (partNumber == NULL)
+		partNumber = -1;
+		while (partNumber ==-1 )
 		{
 			cout << "Enter the part number of the desired torso, 0 to skip:";
 			cin >> value;
 			partNumber = checkInt(value);
 		}
 
-		if (partNumber != 0)
+		if (partNumber == 0)
+			partAdded = true;
+		else
 		{
 			try
 			{
@@ -414,7 +433,6 @@ void Shop::createNewModel()
 
 	}
 
-	partNumber = NULL;
 	partAdded = false;
 	//choosing the battery, if torso was skipped also skip battery
 	if (tors)
@@ -423,14 +441,17 @@ void Shop::createNewModel()
 
 		while (!partAdded)
 		{
-			while (partNumber == NULL)
+			partNumber = -1;
+			while (partNumber == -1)
 			{
 				cout << "Enter the part number of the desired Battery, 0 to skip:";
 				cin >> value;
 				partNumber = checkInt(value);
 			}
 
-			if (partNumber != 0)
+			if (partNumber == 0)
+				partAdded = true;
+			else
 			{
 				try
 				{
@@ -449,8 +470,7 @@ void Shop::createNewModel()
 	}
 
 	//Showing the total price of all the chosen parts to determine model price
-	cout << "Total Part Cost:$" << newModel.getPartsCost() << endl;
-
+	printf("Total Part Cost:$%3.2f\n", newModel.getPartsCost());
 	while (price == NULL)
 	{
 		cout << "Enter Model Price:";
@@ -464,6 +484,123 @@ void Shop::createNewModel()
 	newModel.setDescription(value);
 
 	models.push_back(newModel);
+}
+
+void Shop::createOrder()
+{	
+	int num = orders.size() + 1;
+	string value;
+	int more = 1;
+	bool empty = true;
+	int cust=-1;
+	int assoc=-1;
+	int modelNum = -1;
+
+
+	Order od(num);
+
+	//sets the customer
+	view.viewCustomers(customers);	
+	while (cust == -1)
+	{
+		cout << "Enter the number of the customer, or enter 0 to create a new Customer: ";
+		cin >> value;
+		cust = checkInt(value);
+	}
+
+	if (cust == 0) 
+	{
+		createCustomer();
+		cust = customers.back().getCustomerNumber();
+	}
+	od.choose_customer(cust);
+	customers[cust - 1].add_order(od);
+
+	//sets the associates
+	view.viewAssociates(associates);
+	while (assoc == -1)
+	{
+		cout << "Enter the number of the Associate, or enter 0 to create a new associate: ";
+		cin >> value;
+		assoc = checkInt(value);
+	}
+
+	if (assoc == 0)
+	{
+		createAssociate();
+		assoc = associates.back().getEmployeeNumber();
+	}
+	od.choose_salesAssoc(assoc);
+	associates[assoc - 1].add_order(od);
+
+	//sets the models
+
+	view.viewModels(models);
+
+	while (more==1||empty)
+	{
+		while (modelNum == -1)
+		{
+			cout << "Enter the number of the desired Robot model:";
+			cin >> value;
+			modelNum = checkInt(value);
+		}
+
+		try
+		{
+			RobotModel mod = searchModels(modelNum);
+			empty = false;
+			od.choose_RobotModel(mod);
+			cout << "To add a model to the order, enter 1, to finish the order, enter 0:";
+			cin >> value;
+			more = checkInt(value);
+			modelNum = -1;
+			
+			
+		}
+		catch (partNotFound& e)
+		{
+			cout << "The model number was not found\n";
+			modelNum = -1;
+		}
+
+	}
+
+	od.calculateShipping();
+	od.calculateTax();
+
+	printf("Total Price (includeing tax and shipping): $%3.2f\n", od.totalPrice());
+
+	orders.push_back(od);
+	
+	
+
+}
+
+void Shop::createCustomer() {
+
+	string name;
+	int num;
+	num = customers.size()+1;
+
+	printf("Enter Customer name: ");
+	getline(cin, name, ':');
+	Customer cust(name, num);
+	customers.push_back(cust);
+	
+}
+
+void Shop::createAssociate() {
+
+	string name;
+	int num;
+	num = associates.size() + 1;
+
+	printf("Enter Associate name: ");
+	getline(cin, name, ':');
+	SalesAssociate assoc(name, num);
+	associates.push_back(assoc);
+
 }
 
 
