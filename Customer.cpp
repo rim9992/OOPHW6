@@ -7,7 +7,7 @@ string Customer::getName() {
 	return name;
 }
 
-string Customer::getCustomerNumber() {
+int Customer::getCustomerNumber() {
 
 	return customerNumber;
 
@@ -20,11 +20,11 @@ double Customer::getWallet() {
 
 void Customer::add_order(Order info) {
 
-	orders.push_back(info);
+	orders.push_back(info.get_num());
 }
 
-string Customer::to_string() {
+string Customer::cust_to_string() {
 
-	return name + " (" + customerNumber + ") ";
+	return name + " (" + to_string(customerNumber) + ")\n ";
 
 }
