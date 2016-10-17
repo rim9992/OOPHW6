@@ -82,3 +82,8 @@ void RobotModel::setBatteries(Battery batteries) {
 	partsCost += batteries.getCost()*maxBatteries;
 	totalWeight += batteries.getWeight()*maxBatteries;
 }
+
+double RobotModel::getWeight() {
+
+	return totalWeight;
+}
