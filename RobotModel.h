@@ -34,6 +34,7 @@ public:
 	int getModelNumber();
 	double getPartsCost();
 	void updatePrice(double newPrice);
+	double getWeight();
 	
 
 
