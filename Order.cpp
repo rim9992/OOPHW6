@@ -78,12 +78,27 @@ double Order::getTax()
 
    double Order::totalPrice()
     {
-        total = tax + shipping + Robot_Price;
+        total = tax + shipping + subtotal;
 		return total;
     }
    int Order::get_num()
    {
 	   return OrderNumber;
+   }
+
+int Order::getCustomer()
+   {
+	   return customers;
+   }
+
+   int Order::getAssociate()
+   {
+	   return salesassocs;
+   }
+
+   double Order::getWeight()
+   {
+	   return weight;
    }
 
 
