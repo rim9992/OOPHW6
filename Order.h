@@ -18,16 +18,23 @@ class Customer;
  class Order{
    public:
 
-	   Order(int number, string stat)
-		   : OrderNumber(number), Status(stat) {};
+	   Order(int number)
+		   : OrderNumber(number){};
 
-	   Order(int number) : OrderNumber(number) { Status = "Shipping"; };
-
+	   
     void choose_customer(int cust);
     void choose_salesAssoc(int salesAssoc);
     void choose_RobotModel(RobotModel robo);
-    void get_date();
+    void set_date();
     int get_num();
+	 
+    double getShipping();
+    double getSubtotal();
+    double getTax();
+    string getDate();
+    int getCustomer();
+    int getAssociate();
+    double getWeight();
 
     void calculateShipping();
     void calculateTax();
@@ -40,9 +47,9 @@ class Customer;
     int customers;
     int salesassocs;
     double weight = 0;
-    string Status;
+   
     int OrderNumber;
-    double Robot_Price = 0;;
+
     double shipping = 0;
     double subtotal=0;
     double tax=0;
