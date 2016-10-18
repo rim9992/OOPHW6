@@ -39,7 +39,7 @@ RobotModel.o: RobotModel.cpp RobotModel.h Head.h Locomotor.o Arm.o Battery.o Tor
 	$(CXX) $(CXXFLAGS) -w -c RobotModel.cpp
 Order.o: Order.cpp Order.h RobotModel.o Customer.o SalesAssociate.o
 	$(CXX) $(CXXFLAGS) -w -c Order.cpp
-shop.o: shop.cpp Shop.h
+Shop.o: shop.cpp Shop.h
 	$(CXX) $(CXXFLAGS) -w -c shop.cpp
 view.o: view.cpp view.h
 	$(CXX) $(CXXFLAGS) -w -c view.cpp
