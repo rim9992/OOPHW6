@@ -7,7 +7,7 @@
 
 CXXFLAGS = -std=c++11
 
-OFILES = main.o RobotPart.o Locomotor.o Battery.o Arm.o Torso.o Customer.o SalesAssociate.o RobotModel.o
+OFILES = main.o RobotPart.o Locomotor.o Battery.o Arm.o Torso.o Customer.o SalesAssociate.o RobotModel.o Order.o
 
 all: executable
 
@@ -38,7 +38,7 @@ SalesAssociate.o: SalesAssociate.cpp SalesAssociate.h Order.o
 RobotModel.o: RobotModel.cpp RobotModel.h Head.h Locomotor.o Arm.o Battery.o Torso.o
 	$(CXX) $(CXXFLAGS) -w -c RobotModel.cpp
 Order.o: Order.cpp Order.h RobotModel.o Customer.o SalesAssociate.o
-	$(CXX) $(CXXFLAGS) -w -c Orders.cpp
+	$(CXX) $(CXXFLAGS) -w -c Order.cpp
 	
 clean:
 	rm -f *.o *.out
