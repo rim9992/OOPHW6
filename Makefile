@@ -7,7 +7,7 @@
 
 CXXFLAGS = -std=c++11
 
-OFILES = main.o RobotPart.o Locomotor.o Battery.o Arm.o Torso.o Customer.o SalesAssociate.o RobotModel.o Order.o
+OFILES = main.o RobotPart.o Locomotor.o Battery.o Arm.o Torso.o Customer.o SalesAssociate.o RobotModel.o Order.o shop.o view.o tinyxml2.o
 
 all: executable
 
@@ -39,6 +39,12 @@ RobotModel.o: RobotModel.cpp RobotModel.h Head.h Locomotor.o Arm.o Battery.o Tor
 	$(CXX) $(CXXFLAGS) -w -c RobotModel.cpp
 Order.o: Order.cpp Order.h RobotModel.o Customer.o SalesAssociate.o
 	$(CXX) $(CXXFLAGS) -w -c Order.cpp
+shop.o: shop.cpp Shop.h
+	$(CXX) $(CXXFLAGS) -w -c shop.cpp
+view.o: view.cpp view.h
+	$(CXX) $(CXXFLAGS) -w -c view.cpp
+tinyxml2.o: tinyxml2.cpp tinyxml2.h
+	$(CXX) $(CXXFLAGS) -w -c tinyxml2.cpp
 	
 clean:
 	rm -f *.o *.out
