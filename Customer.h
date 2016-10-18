@@ -25,13 +25,15 @@ public:
 	int getCustomerNumber();
 	double getWallet();
 	void add_order(Order info);
+        
+        vector<int> orders;
 
 private:
 
 	string name;
 	int customerNumber;
 	double wallet;
-	vector<int> orders;
+	
 	
 
 };

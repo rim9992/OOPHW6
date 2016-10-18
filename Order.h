@@ -25,21 +25,21 @@ class Customer;
 
     void choose_customer(int cust);
     void choose_salesAssoc(int salesAssoc);
-	void choose_RobotModel(RobotModel robo);
+    void choose_RobotModel(RobotModel robo);
     void get_date();
-	int get_num();
+    int get_num();
 
     void calculateShipping();
     void calculateTax();
-	double totalPrice();
+    double totalPrice();
 
+    vector<int> robotmodels;
 
    private:
     string date;
     int customers;
     int salesassocs;
     double weight = 0;
-    vector<int> robotmodels;
     string Status;
     int OrderNumber;
     double Robot_Price = 0;;

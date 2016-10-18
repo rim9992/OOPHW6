@@ -26,12 +26,14 @@ public:
 	string getName();
 	int getEmployeeNumber();
 	void add_order(Order info);
+        
+        vector<int> orders;
 
 private:
 
 	string name;
 	int employeeNumber;
-	vector<int> orders;
+	
 
 
 };
