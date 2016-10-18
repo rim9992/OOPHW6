@@ -17,7 +17,7 @@ public:
 		
 	
 
-	int powerConsumed(int speed);
+	int powerConsumed();
 
 private:
 	int Speed;

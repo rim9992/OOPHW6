@@ -1,6 +1,6 @@
 #include "Arm.h"
 
-int Arm::powerConsumed(int speed)
+int Arm::powerConsumed()
 {
-	return speed;
+	return Speed;
 }

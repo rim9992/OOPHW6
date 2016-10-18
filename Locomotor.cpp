@@ -1,6 +1,6 @@
 #include "Locomotor.h"
 
-int Locomotor::powerConsumed(int speed)
+int Locomotor::powerConsumed()
 {
-	return speed;
+	return maxSpeed;
 }
