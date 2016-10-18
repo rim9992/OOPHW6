@@ -7,9 +7,12 @@
  * Ricardo Morales
  */
 
+#include "Shop.h"
+
 int main() {
 
-
+    Shop shop;
+    shop.cli();
 
 }
 

@@ -31,9 +31,9 @@ Arm.o: Arm.cpp Arm.h
 	$(CXX) $(CXXFLAGS) -w -c Arm.cpp
 Torso.o: Torso.cpp Torso.h
 	$(CXX) $(CXXFLAGS) -w -c Torso.cpp
-Customer.o: Customer.cpp Customer.h Order.o
+Customer.o: Customer.cpp Customer.h
 	$(CXX) $(CXXFLAGS) -w -c Customer.cpp
-SalesAssociate.o: SalesAssociate.cpp SalesAssociate.h Order.o
+SalesAssociate.o: SalesAssociate.cpp SalesAssociate.h
 	$(CXX) $(CXXFLAGS) -w -c SalesAssociate.cpp
 RobotModel.o: RobotModel.cpp RobotModel.h Head.h Locomotor.o Arm.o Battery.o Torso.o
 	$(CXX) $(CXXFLAGS) -w -c RobotModel.cpp
