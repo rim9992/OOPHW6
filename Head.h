@@ -11,7 +11,7 @@
 class Head: public RobotPart {
 
 public:
-	Head(string Name, int PartNumber, ComponentType comp, double Weight, double Cost, string Description, int speed) :
+	Head(string Name, int PartNumber, ComponentType comp, double Weight, double Cost, string Description) :
 		RobotPart(Name, PartNumber, comp, Weight, Cost, Description){}
 
 };
