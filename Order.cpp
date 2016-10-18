@@ -6,7 +6,7 @@
 
  using namespace std;
 
-     void Order::get_date()
+     void Order::set_date()
      {
 
         time_t now = time(0);
@@ -28,6 +28,25 @@
         
         
      }
+string Order::getDate()
+ 	{
+		 return date;
+	 }
+
+double Order::getShipping()
+	 {
+		 return shipping;
+	 }
+
+double Order::getSubtotal()
+	 {
+		 return subtotal;
+	 }
+
+double Order::getTax()
+	 {
+		 return tax;
+	 }
 
     void Order::choose_customer(int cust)
     {
