@@ -12,6 +12,7 @@
 int main() {
 
     Shop shop;
+    shop.load();
     shop.cli();
 
 }
