@@ -5,8 +5,12 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <string>
 
 using namespace std;
+
+#include "tinyxml2.h"
+using namespace tinyxml2;
 
 #include "Head.h"
 #include "Locomotor.h"
@@ -46,6 +50,9 @@ public:
 	void cli();
 	int checkInt(string val);
 	double checkDub(string val);
+        void save();
+        void load();
+        char* stringToChar(string str);
 
 private:
 

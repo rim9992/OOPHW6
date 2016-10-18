@@ -272,7 +272,7 @@ void Shop::createNewPart()
 		batteries.push_back(batt);
 	}
 
-
+        save();
 
 }
 
@@ -484,6 +484,9 @@ void Shop::createNewModel()
 	newModel.setDescription(value);
 
 	models.push_back(newModel);
+        
+        
+        save();
 }
 
 void Shop::createOrder()
@@ -573,7 +576,7 @@ void Shop::createOrder()
 
 	orders.push_back(od);
 	
-	
+	save();
 
 }
 
@@ -587,6 +590,8 @@ void Shop::createCustomer() {
 	getline(cin, name, ':');
 	Customer cust(name, num);
 	customers.push_back(cust);
+        
+        save();
 	
 }
 
@@ -600,7 +605,164 @@ void Shop::createAssociate() {
 	getline(cin, name, ':');
 	SalesAssociate assoc(name, num);
 	associates.push_back(assoc);
+        
+        save();
 
 }
 
 
+void Shop::save() {
+    
+    XMLElement * pElement;
+    
+     // Populate XMLDocument
+    XMLDocument xmlDoc;
+    
+    // Create Root node
+    XMLNode * pRoot = xmlDoc.NewElement("Root");
+    xmlDoc.InsertFirstChild(pRoot);
+    
+    // Store Head
+    pElement = xmlDoc.NewElement("headList");
+    for (int i = 0; i < heads.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("head");
+        pListElement->SetAttribute("name", stringToChar(heads[i].getName()));
+        pListElement->SetAttribute("partNumber", heads[i].getPartNumber());
+        pListElement->SetAttribute("weight", heads[i].getWeight());
+        pListElement->SetAttribute("cost", heads[i].getCost());
+        pListElement->SetAttribute("description", stringToChar(heads[i].getDescription()));
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    // Store locomotors
+    pElement = xmlDoc.NewElement("locomotorsList");
+    for (int i = 0; i < locomotors.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("locomotors");
+        pListElement->SetAttribute("name", stringToChar(locomotors[i].getName()));
+        pListElement->SetAttribute("partNumber", locomotors[i].getPartNumber());
+        pListElement->SetAttribute("weight", locomotors[i].getWeight());
+        pListElement->SetAttribute("cost", locomotors[i].getCost());
+        pListElement->SetAttribute("description", stringToChar(locomotors[i].getDescription()));
+        pListElement->SetAttribute("powerConsumed", locomotors[i].powerConsumed());
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    // Store Arms
+    pElement = xmlDoc.NewElement("armsList");
+    for (int i = 0; i < arms.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("arms");
+        pListElement->SetAttribute("name", stringToChar(arms[i].getName()));
+        pListElement->SetAttribute("partNumber", arms[i].getPartNumber());
+        pListElement->SetAttribute("weight", arms[i].getWeight());
+        pListElement->SetAttribute("cost", arms[i].getCost());
+        pListElement->SetAttribute("description", stringToChar(arms[i].getDescription()));
+        pListElement->SetAttribute("powerConsumed", arms[i].powerConsumed());
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    // Store batteries
+    pElement = xmlDoc.NewElement("batteriesList");
+    for (int i = 0; i < batteries.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("batteries");
+        pListElement->SetAttribute("name", stringToChar(batteries[i].getName()));
+        pListElement->SetAttribute("partNumber", batteries[i].getPartNumber());
+        pListElement->SetAttribute("weight", batteries[i].getWeight());
+        pListElement->SetAttribute("cost", batteries[i].getCost());
+        pListElement->SetAttribute("description", stringToChar(batteries[i].getDescription()));
+        pListElement->SetAttribute("energy", batteries[i].getEnergy());
+        pListElement->SetAttribute("maxPower", batteries[i].getMaxPower());
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    // Store Torso
+    pElement = xmlDoc.NewElement("torsosList");
+    for (int i = 0; i < torsos.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("torsos");
+        pListElement->SetAttribute("name", stringToChar(torsos[i].getName()));
+        pListElement->SetAttribute("partNumber", torsos[i].getPartNumber());
+        pListElement->SetAttribute("weight", torsos[i].getWeight());
+        pListElement->SetAttribute("cost", torsos[i].getCost());
+        pListElement->SetAttribute("description", stringToChar(torsos[i].getDescription()));
+        pListElement->SetAttribute("maxBatteries", torsos[i].max_batteries());
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    // Store models
+    pElement = xmlDoc.NewElement("modelsList");
+    for (int i = 0; i < models.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("models");
+        pListElement->SetAttribute("name", stringToChar(models[i].getName()));
+        pListElement->SetAttribute("modelNumber", models[i].getModelNumber());
+        pListElement->SetAttribute("weight", models[i].getWeight());
+        pListElement->SetAttribute("partsCost", models[i].getPartsCost());
+        pListElement->SetAttribute("price", models[i].getPrice());
+        pListElement->SetAttribute("description", stringToChar(models[i].getDescription()));
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    //<!!!!!!!!!!!!!!!!!!!!!! Add Vector
+    // Store customers
+    pElement = xmlDoc.NewElement("customersList");
+    for (int i = 0; i < customers.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("customers");
+        pListElement->SetAttribute("name", stringToChar(customers[i].getName()));
+        pListElement->SetAttribute("customerNumber", customers[i].getCustomerNumber());
+        pListElement->SetAttribute("wallet", customers[i].getWallet());
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    //<!!!!!!!!!!!!!!!!!!!!!! Add Vector
+    // Store associates
+    pElement = xmlDoc.NewElement("associatesList");
+    for (int i = 0; i < associates.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("associates");
+        pListElement->SetAttribute("name", stringToChar(associates[i].getName()));
+        pListElement->SetAttribute("employeeNumber", associates[i].getEmployeeNumber());
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
+    
+    
+    // !!!!!!!!!!!!!
+    // Add orders once get methods have been created
+    
+    
+    // Save Data
+    // !!!!!!!!!!!!!!!!!!check for errors
+    xmlDoc.SaveFile("SavedData.xml");
+//    XMLCheckResult(eResult);
+}
+
+void Shop::load() {
+    
+    
+    
+}
+
+
+char* Shop::stringToChar(string str) {
+    char charArr[10000] = "";
+    strcpy(charArr, str.c_str());
+}
