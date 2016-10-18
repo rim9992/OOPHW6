@@ -38,14 +38,13 @@ class Customer;
     string date;
     int customers;
     int salesassocs;
-	double weight = 0;
+    double weight = 0;
     vector<int> robotmodels;
     string Status;
     int OrderNumber;
-
-	double Robot_Price = 0;;
-	double shipping = 0;
-	double subtotal=0;
+    double Robot_Price = 0;;
+    double shipping = 0;
+    double subtotal=0;
     double tax=0;
     double total = 0;
 

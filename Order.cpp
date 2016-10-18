@@ -2,14 +2,31 @@
 #include "Order.h"
 #include "SalesAssociate.h"
 #include "Customer.h"
+#include <ctime>
 
  using namespace std;
 
      void Order::get_date()
      {
-           	char today[9];
-            _strdate_s(today);
-            date = today;
+
+        time_t now = time(0);
+        tm * ltm = localtime(&now);
+        //Format month correctly
+        if (ltm->tm_mon < 10) {
+            date = "0" + ltm->tm_mon;
+        } else {
+            date = ltm->tm_mon;
+        }
+        // Format day correctly
+        if (ltm->tm_mday < 10) {
+            date += "/0" + ltm->tm_mday;
+        } else {
+            date += "/" + ltm->tm_mday;
+        }
+        // Add year
+        date += "/" + ltm->tm_year;
+        
+        
      }
 
     void Order::choose_customer(int cust)
