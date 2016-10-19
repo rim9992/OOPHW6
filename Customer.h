@@ -26,6 +26,8 @@ public:
 	double getWallet();
 	void add_order(Order info);
         
+        void setWallet(double wall);
+        
         vector<int> orders;
 
 private:

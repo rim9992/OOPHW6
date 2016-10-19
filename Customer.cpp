@@ -28,3 +28,7 @@ string Customer::cust_to_string() {
 	return name + " (" + to_string(customerNumber) + ")\n ";
 
 }
+
+void Customer::setWallet(double wall) {
+    wallet = wall;
+}
