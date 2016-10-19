@@ -39,6 +39,8 @@ class Customer;
     void calculateShipping();
     void calculateTax();
     double totalPrice();
+    
+    void restoreOrder(string inDate, int inCustomers, int inSalesassoc, double inWeight, double inShipping, double inSubtotal, double inTax, double inTotal);
 
     vector<int> robotmodels;
 

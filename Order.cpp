@@ -101,4 +101,15 @@ int Order::getCustomer()
 	   return weight;
    }
 
+   void Order::restoreOrder(string inDate, int inCustomers, int inSalesassoc, double inWeight, double inShipping, double inSubtotal, double inTax, double inTotal){
+       
+    date = inDate;
+    customers = inCustomers;
+    salesassocs = inSalesassoc;
+    weight = inWeight;
+    shipping = inShipping;
+    subtotal = inSubtotal;
+    tax = inTax;
+    total = inTotal; 
+   }
 
