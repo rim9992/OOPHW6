@@ -53,6 +53,7 @@ public:
         void save();
         void load();
         char* stringToChar(string str);
+        void XMLCheckResult(XMLError a_eResult);
 
 private:
 

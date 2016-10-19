@@ -712,13 +712,19 @@ void Shop::save() {
         pListElement->SetAttribute("partsCost", models[i].getPartsCost());
         pListElement->SetAttribute("price", models[i].getPrice());
         pListElement->SetAttribute("description", stringToChar(models[i].getDescription()));
+        //get the vector of int
+        for (int j = 0; j < models[i].arms.size(); i++) {
+            XMLElement * pListElementVec = xmlDoc.NewElement("arms");
+            pListElementVec->SetText(models[i].arms[j]);
+            
+            pListElement->InsertEndChild(pListElementVec);
+        }
         
         pElement->InsertEndChild(pListElement);
     }
     pRoot->InsertEndChild(pElement);
     
     
-    //<!!!!!!!!!!!!!!!!!!!!!! Add Vector
     // Store customers
     pElement = xmlDoc.NewElement("customersList");
     for (int i = 0; i < customers.size(); i++) {
@@ -726,37 +732,390 @@ void Shop::save() {
         pListElement->SetAttribute("name", stringToChar(customers[i].getName()));
         pListElement->SetAttribute("customerNumber", customers[i].getCustomerNumber());
         pListElement->SetAttribute("wallet", customers[i].getWallet());
+        //get the vector of int
+        for (int j = 0; j < customers[i].orders.size(); i++) {
+            XMLElement * pListElementVec = xmlDoc.NewElement("orders");
+            pListElementVec->SetText(customers[i].orders[j]);
+            
+            pListElement->InsertEndChild(pListElementVec);
+        }
         
         pElement->InsertEndChild(pListElement);
     }
     pRoot->InsertEndChild(pElement);
     
     
-    //<!!!!!!!!!!!!!!!!!!!!!! Add Vector
     // Store associates
     pElement = xmlDoc.NewElement("associatesList");
     for (int i = 0; i < associates.size(); i++) {
         XMLElement * pListElement = xmlDoc.NewElement("associates");
         pListElement->SetAttribute("name", stringToChar(associates[i].getName()));
         pListElement->SetAttribute("employeeNumber", associates[i].getEmployeeNumber());
+        //get the vector of int
+        for (int j = 0; j < associates[i].orders.size(); i++) {
+            XMLElement * pListElementVec = xmlDoc.NewElement("orders");
+            pListElementVec->SetText(associates[i].orders[j]);
+            
+            pListElement->InsertEndChild(pListElementVec);
+        }
         
         pElement->InsertEndChild(pListElement);
     }
     pRoot->InsertEndChild(pElement);
     
     
-    // !!!!!!!!!!!!!
-    // Add orders once get methods have been created
+    // Store orders
+    pElement = xmlDoc.NewElement("ordersList");
+    for (int i = 0; i < orders.size(); i++) {
+        XMLElement * pListElement = xmlDoc.NewElement("orders");
+        pListElement->SetAttribute("salesassocs", orders[i].getAssociate());
+        pListElement->SetAttribute("customers", orders[i].getCustomer());
+        pListElement->SetAttribute("date", stringToChar(orders[i].getDate()));
+        pListElement->SetAttribute("shipping", orders[i].getShipping());
+        pListElement->SetAttribute("subtotal", orders[i].getSubtotal());
+        pListElement->SetAttribute("tax", orders[i].getTax());
+        pListElement->SetAttribute("weight", orders[i].getWeight());
+        pListElement->SetAttribute("OrderNumber", orders[i].get_num());
+        pListElement->SetAttribute("total", orders[i].totalPrice());
+        
+        //get the vector of int
+        for (int j = 0; j < orders[i].robotmodels.size(); i++) {
+            XMLElement * pListElementVec = xmlDoc.NewElement("robotmodels");
+            pListElementVec->SetText(orders[i].robotmodels[j]);
+            
+            pListElement->InsertEndChild(pListElementVec);
+        }
+        
+        pElement->InsertEndChild(pListElement);
+    }
+    pRoot->InsertEndChild(pElement);
     
     
     // Save Data
-    // !!!!!!!!!!!!!!!!!!check for errors
-    xmlDoc.SaveFile("SavedData.xml");
-//    XMLCheckResult(eResult);
+    XMLError eResult = xmlDoc.SaveFile("SavedData.xml");
+    XMLCheckResult(eResult);
 }
 
+// Load the XML "SavedData.xml" file
 void Shop::load() {
     
+    string name, description;
+    int partNumber, weight, cost, speed, battery;
+    const char * attributeText = nullptr;
+    double energy, power, wallet;
+    
+    XMLDocument xmlDoc;
+    
+    XMLError eResult = xmlDoc.LoadFile("SavedData.xml");
+    XMLCheckResult(eResult);
+    
+    XMLNode * pRoot = xmlDoc.FirstChild();
+    if (pRoot == nullptr) cerr<<"Error loading root in XML file";
+    
+    
+    
+    // Load Head
+    XMLElement * pElement = pRoot->FirstChildElement("headList");
+    if (pElement == nullptr) cerr<<"ERROR parsing head in XML file"<<endl;
+    
+    XMLElement * pListElement = pElement->FirstChildElement("head");
+    
+    while (pListElement != nullptr) {
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading head text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("partNumber", &partNumber);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("weight", &weight);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("cost", &cost);
+        XMLCheckResult(eResult);
+        attributeText = pListElement->Attribute("description");
+        if (attributeText == nullptr) cerr<<"Error loading head text from XML file";
+        description = attributeText;
+
+        Head head(name, partNumber, ComponentType::head, weight, cost, description);
+        heads.push_back(head);
+        
+        pListElement = pListElement->NextSiblingElement("head");
+    }
+    
+    
+    
+    // Load locomotors
+    pElement = pRoot->FirstChildElement("locomotorsList");
+    if (pElement == nullptr) cerr<<"ERROR parsing head in XML file"<<endl;
+    
+    pListElement = pElement->FirstChildElement("locomotors");
+    
+    while (pListElement != nullptr) {
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading locomotors text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("partNumber", &partNumber);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("weight", &weight);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("cost", &cost);
+        XMLCheckResult(eResult);
+        attributeText = pListElement->Attribute("description");
+        if (attributeText == nullptr) cerr<<"Error loading locomotors text from XML file";
+        description = attributeText;
+        eResult = pListElement->QueryIntAttribute("powerConsumed", &speed);
+        XMLCheckResult(eResult);
+
+        Locomotor loco(name, partNumber, ComponentType::locomotor, weight, cost, description, speed);
+	locomotors.push_back(loco);
+        
+        pListElement = pListElement->NextSiblingElement("locomotors");
+    }
+    
+    
+    
+    // Load arms
+    pElement = pRoot->FirstChildElement("armsList");
+    if (pElement == nullptr) cerr<<"ERROR parsing head in XML file"<<endl;
+    
+    pListElement = pElement->FirstChildElement("arms");
+    
+    while (pListElement != nullptr) {
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading arms text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("partNumber", &partNumber);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("weight", &weight);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("cost", &cost);
+        XMLCheckResult(eResult);
+        attributeText = pListElement->Attribute("description");
+        if (attributeText == nullptr) cerr<<"Error loading arms text from XML file";
+        description = attributeText;
+        eResult = pListElement->QueryIntAttribute("powerConsumed", &speed);
+        XMLCheckResult(eResult);
+
+        Arm arm(name, partNumber, ComponentType::arm, weight, cost, description, speed);
+	arms.push_back(arm);
+        
+        pListElement = pListElement->NextSiblingElement("arms");
+    }
+    
+    
+    
+    // Load batteries
+    pElement = pRoot->FirstChildElement("batteriesList");
+    if (pElement == nullptr) cerr<<"ERROR parsing head in XML file"<<endl;
+    
+    pListElement = pElement->FirstChildElement("batteries");
+    
+    while (pListElement != nullptr) {
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading batteries text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("partNumber", &partNumber);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("weight", &weight);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("cost", &cost);
+        XMLCheckResult(eResult);
+        attributeText = pListElement->Attribute("description");
+        if (attributeText == nullptr) cerr<<"Error loading batteries text from XML file";
+        description = attributeText;
+        eResult = pListElement->QueryDoubleAttribute("energy", &energy);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("maxPower", &power);
+        XMLCheckResult(eResult);
+
+        Battery batt(name, partNumber, ComponentType::battery, weight, cost, description, energy, power);
+	batteries.push_back(batt);
+        
+        pListElement = pListElement->NextSiblingElement("batteries");
+    }
+    
+    
+    // Load torsos
+    pElement = pRoot->FirstChildElement("torsosList");
+    if (pElement == nullptr) cerr<<"ERROR parsing head in XML file"<<endl;
+    
+    pListElement = pElement->FirstChildElement("torsos");
+    
+    while (pListElement != nullptr) {
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading torsos text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("partNumber", &partNumber);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("weight", &weight);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("cost", &cost);
+        XMLCheckResult(eResult);
+        attributeText = pListElement->Attribute("description");
+        if (attributeText == nullptr) cerr<<"Error loading torsos text from XML file";
+        description = attributeText;
+        eResult = pListElement->QueryIntAttribute("maxBatteries", &battery);
+        XMLCheckResult(eResult);
+
+        Torso torso(name, partNumber, ComponentType::torso, weight, cost, description, battery);
+        torsos.push_back(torso);
+        
+        pListElement = pListElement->NextSiblingElement("torsos");
+    }
+    
+    
+//<<<<<!!!!!!!!! Add models !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>>>>>//
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    // Load customers
+    pElement = pRoot->FirstChildElement("customersList");
+    if (pElement == nullptr) cerr<<"ERROR parsing customers in XML file"<<endl;
+    
+    pListElement = pElement->FirstChildElement("customers");
+    
+    while (pListElement != nullptr) {
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading customers text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("customerNumber", &partNumber);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("wallet", &wallet);
+        XMLCheckResult(eResult);
+        
+        // Recycling partNumber 
+        Customer customer(name, partNumber);
+        customer.setWallet(wallet);
+        
+        // Import vector of ints
+        XMLElement * pListElementVec = pListElement->FirstChildElement("Orders");
+        while (pListElementVec != nullptr) {
+            int temp;
+            eResult = pListElementVec->QueryIntText(&temp);
+            XMLCheckResult(eResult);
+            customer.orders.push_back(temp);
+        }
+        
+        customers.push_back(customer);
+        
+        pListElement = pListElement->NextSiblingElement("customers");
+    }
+    
+    
+    
+    // Load associates
+    pElement = pRoot->FirstChildElement("associatesList");
+    if (pElement == nullptr) cerr<<"ERROR parsing associates in XML file"<<endl;
+    
+    pListElement = pElement->FirstChildElement("associates");
+    
+    while (pListElement != nullptr) {
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading associates text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("employeeNumber", &partNumber);
+        XMLCheckResult(eResult);
+        
+        // Recycling partNumber 
+        SalesAssociate associate(name, partNumber);
+        
+        // Import vector of ints
+        XMLElement * pListElementVec = pListElement->FirstChildElement("Orders");
+        while (pListElementVec != nullptr) {
+            int temp;
+            eResult = pListElementVec->QueryIntText(&temp);
+            XMLCheckResult(eResult);
+            associate.orders.push_back(temp);
+        }
+        
+        associates.push_back(associate);
+        
+        pListElement = pListElement->NextSiblingElement("customers");
+    }
+    
+    
+   //<<<<<!!!!!!!!! Add orders !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>>>>>//
+    
+//    // Store orders
+//    pElement = xmlDoc.NewElement("ordersList");
+//    for (int i = 0; i < orders.size(); i++) {
+//        XMLElement * pListElement = xmlDoc.NewElement("orders");
+//        pListElement->SetAttribute("salesassocs", orders[i].getAssociate());
+//        pListElement->SetAttribute("customers", orders[i].getCustomer());
+//        pListElement->SetAttribute("date", stringToChar(orders[i].getDate()));
+//        pListElement->SetAttribute("shipping", orders[i].getShipping());
+//        pListElement->SetAttribute("subtotal", orders[i].getSubtotal());
+//        pListElement->SetAttribute("tax", orders[i].getTax());
+//        pListElement->SetAttribute("weight", orders[i].getWeight());
+//        pListElement->SetAttribute("OrderNumber", orders[i].get_num());
+//        pListElement->SetAttribute("total", orders[i].totalPrice());
+//        
+//        //get the vector of int
+//        for (int j = 0; j < orders[i].robotmodels.size(); i++) {
+//            XMLElement * pListElementVec = xmlDoc.NewElement("robotmodels");
+//            pListElementVec->SetText(orders[i].robotmodels[j]);
+//            
+//            pListElement->InsertEndChild(pListElementVec);
+//        }
+//        
+//        pElement->InsertEndChild(pListElement);
+//    }
+//    pRoot->InsertEndChild(pElement);
+    
+    
+    // Load orders
+    pElement = pRoot->FirstChildElement("ordersList");
+    if (pElement == nullptr) cerr<<"ERROR parsing orders in XML file"<<endl;
+    
+    pListElement = pElement->FirstChildElement("orders");
+    
+    int customer, salesAsso, orderNum;
+    double weight1, shipping, subtotal, tax, total;
+    
+    while (pListElement != nullptr) {
+        eResult = pListElement->QueryIntAttribute("salesassocs", &salesAsso);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("customers", &customer);
+        XMLCheckResult(eResult);
+        attributeText = pListElement->Attribute("date");
+        if (attributeText == nullptr) cerr<<"Error loading orders text from XML file";
+        name = attributeText;
+        eResult = pListElement->QueryIntAttribute("OrderNumber", &orderNum);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("shipping", &shipping);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("subtotal", &subtotal);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("tax", &tax);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("weight", &weight1);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("total", &total);
+        XMLCheckResult(eResult);
+        
+        // Recycling partNumber 
+        Order order(orderNum);
+        order.restoreOrder(name, customer, salesAsso, weight1, shipping, subtotal, tax, total);
+        
+        // Import vector of ints
+        XMLElement * pListElementVec = pListElement->FirstChildElement("robotmodels");
+        while (pListElementVec != nullptr) {
+            int temp;
+            eResult = pListElementVec->QueryIntText(&temp);
+            XMLCheckResult(eResult);
+            order.robotmodels.push_back(temp);
+        }
+        
+        orders.push_back(order);
+        
+        pListElement = pListElement->NextSiblingElement("customers");
+    }
     
     
 }
@@ -765,4 +1124,10 @@ void Shop::load() {
 char* Shop::stringToChar(string str) {
     char charArr[10000] = "";
     strcpy(charArr, str.c_str());
+}
+
+void Shop::XMLCheckResult(XMLError a_eResult) {
+    if (a_eResult != XML_SUCCESS) {
+        cerr<<"Error: "<< a_eResult;
+    }
 }
