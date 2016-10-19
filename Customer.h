@@ -1,4 +1,4 @@
-#ifndef _CUSTOMER_H_
+z#ifndef _CUSTOMER_H_
 #define _CUSTOMER_H_
 #pragma once
 
@@ -34,7 +34,7 @@ private:
 
 	string name;
 	int customerNumber;
-	double wallet;
+	double wallet = 0;
 	
 	
 
