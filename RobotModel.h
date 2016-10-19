@@ -46,12 +46,11 @@ public:
 	void setDescription(string des);
 	string getDescription();
 
-
+        vector<int> arms;
 
 private:
 	int torso;
 	int head;
-	vector<int> arms;
 	int locomotor;
 	int battery;
 	string name;
