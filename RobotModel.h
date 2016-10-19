@@ -35,6 +35,15 @@ public:
 	double getPartsCost();
 	void updatePrice(double newPrice);
 	double getWeight();
+        
+        // Need to make the methods
+        int getTorso();
+        int getHead();
+        int getLocomotor();
+        int getBattery();
+        int getMaxBatteries();
+        int getnumOfArms();
+        
 	
 
 
