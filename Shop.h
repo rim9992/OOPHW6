@@ -38,6 +38,8 @@ public:
 	Torso searchTorsos(int partNum);
 	Battery searchBattery(int partNum);
 	RobotModel searchModels(int partNum);
+	Customer searchCustomers(int num);
+	SalesAssociate searchAssociates(int num);
 
 
 	void createNewPart();
