@@ -1,4 +1,4 @@
-z#ifndef _CUSTOMER_H_
+#ifndef _CUSTOMER_H_
 #define _CUSTOMER_H_
 #pragma once
 
