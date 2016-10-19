@@ -1,0 +1,36 @@
+<Root>
+    <headList>
+        <head name="Headding" partNumber="0" weight="5" cost="50" description="This is a head called Headding"/>
+    </headList>
+    <locomotorsList>
+        <locomotors name="
+choochoo" partNumber="0" weight="4" cost="87" description="
+The locomotor of choice" powerConsumed="63"/>
+    </locomotorsList>
+    <armsList>
+        <arms name="
+Army" partNumber="15" weight="3" cost="90" description="
+This army will blow you away" powerConsumed="2"/>
+    </armsList>
+    <batteriesList>
+        <batteries name="
+Duracel" partNumber="1" weight="8" cost="10" description="
+Will run all day long (as long as you don&apos;t set the bunny free)" energy="9000.1000000000004" maxPower="200.56"/>
+    </batteriesList>
+    <torsosList>
+        <torsos name="
+TallTorso" partNumber="2" weight="3" cost="50" description="
+Keeps a good posture" maxBatteries="2"/>
+    </torsosList>
+    <modelsList/>
+    <customersList>
+        <customers name="
+Sally" customerNumber="1" wallet="0"/>
+        <customers name="
+Manny" customerNumber="2" wallet="1.9762625833649862e-323"/>
+    </customersList>
+    <associatesList>
+        <associates name="
+Bob" employeeNumber="1"/>
+    </associatesList>
+</Root>
