@@ -6,6 +6,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <time.h>
+#include <iomanip>
 
 using namespace std;
 
@@ -35,6 +36,7 @@ class Customer;
     int getCustomer();
     int getAssociate();
     double getWeight();
+    void printOrder();
 
     void calculateShipping();
     void calculateTax();
