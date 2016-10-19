@@ -11,22 +11,86 @@ void Shop::cli()
 		cin >> choice;
 		if (choice == 1)
 		{
-			view.viewModels(models);
+			while (choice != 0)
+			{
+				view.printCreateMenu();
+				cin >> choice;
+
+				if (choice == 1)
+					createOrder();
+				else if (choice == 2)
+					createCustomer();
+				else if (choice == 3)
+					createAssociate();
+				else if (choice == 4)
+					createNewModel();
+				else if (choice == 5)
+					createNewPart();
+			}
+			choice = 1;
 		}
 		else if (choice == 2)
-			createNewModel();
-		else if (choice == 3)
-			createNewPart();
-		else if (choice == 4)
-			createCustomer();
-		else if (choice == 5)
-			createAssociate();
-		else if (choice == 6)
-			createOrder();
+		{
+			while (choice != 0)
+			{
+				view.printReportMenu();
+				cin >> choice;
+				if (choice == 1)
+				{
+					cout << "Orders by Associate (1)"
+						<< "\nOrders by Customer(2)"
+						<< "\nAll(3)" << endl;
+					cin >> choice;
+					if (choice == 1)
+					{
+						view.viewAssociates(associates);
+						cout << "Associate Number:";
+						cin >> choice;
+						try 
+						{
+							SalesAssociate sa = searchAssociates(choice);
+							view.viewAssociateOrders(sa, orders);
 
+						}
+						catch (partNotFound& e)
+						{
+							cout << "The Associate Number was not found\n" << endl;
+						}	
+					}
+					else if (choice == 2)
+					{
+						view.viewCustomers(customers);
+						cout << "Customer Number:";
+						cin >> choice;
+						try 
+						{
+							Customer cust = searchCustomers(choice);
+							view.viewCustomerOrders(cust, orders);
 
+						}
+						catch (partNotFound& e)
+						{
+							cout << "The Customer Number was not found\n" << endl;
+						}
+					}
+					else
+					{
+						view.viewOrders(orders);
+					}				 
+				}
+					
+				else if (choice == 2)
+					view.viewCustomers(customers);
+				else if (choice == 3)
+					view.viewAssociates(associates);
+				else if (choice == 4)
+					view.viewModels(models);
+			}
+			choice = 1;	
+		}		
 	}
 }
+
 
 RobotModel Shop::searchModels(int partNum)
 {
@@ -100,6 +164,33 @@ Arm Shop::searchArms(int partNum) {
 	{
 		if (arms[i].getPartNumber() == partNum)
 			return arms[i];
+	}
+
+	throw partNotFound();
+}
+
+Customer Shop::searchCustomers(int num) 
+{
+
+	int length = customers.size();
+	int i;
+	for (i = 0; i < length; i++)
+	{
+		if (customers[i].getCustomerNumber() == num)
+			return customers[i];
+	}
+
+	throw partNotFound();
+}
+
+SalesAssociate Shop::searchAssociates(int num)
+{
+	int length = associates.size();
+	int i;
+	for (i = 0; i < length; i++)
+	{
+		if (associates[i].getEmployeeNumber() == num)
+			return associates[i];
 	}
 
 	throw partNotFound();
