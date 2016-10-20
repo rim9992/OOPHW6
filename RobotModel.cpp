@@ -104,3 +104,21 @@ int RobotModel::getnumOfArms(){
     return numOfArms;
 }
 
+void RobotModel::restoreValues(int itorso, int ihead, int ilocomotor, int ibattery, 
+            string iname, string idescription, int imodelNumber, double iprice, int imaxBatteries,
+            int inumOfArms, double ipartsCost,double itotalWeight) {
+    
+    int torso;
+	head = ihead;
+	locomotor = ilocomotor;
+	battery = ibattery;
+	name = iname;
+	description = idescription;
+	modelNumber = imodelNumber;
+	price = iprice;
+	maxBatteries = imaxBatteries;
+	numOfArms = inumOfArms;
+	partsCost  = ipartsCost;
+	totalWeight = itotalWeight;
+    
+}

@@ -41,7 +41,9 @@ public:
         int getMaxBatteries();
         int getnumOfArms();
         
-	
+	void restoreValues(int torso, int head, int locomotor, int battery, 
+            string name, string description, int modelNumber, double price, int maxBatteries,
+            int numOfArms, double partsCost,double totalWeight);
 
 
 	void setTorso(Torso tor);
