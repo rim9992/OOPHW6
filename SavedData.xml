@@ -1,10 +1,10 @@
 <Root>
     <headList>
-        <head name="Headding" partNumber="0" weight="5" cost="50" description="This is a head called Headding"/>
+        <head name="Headding" partNumber="1" weight="5" cost="50" description="This is a head called Headding"/>
     </headList>
     <locomotorsList>
         <locomotors name="
-choochoo" partNumber="0" weight="4" cost="87" description="
+choochoo" partNumber="1" weight="4" cost="87" description="
 The locomotor of choice" powerConsumed="63"/>
     </locomotorsList>
     <armsList>
@@ -32,5 +32,9 @@ Manny" customerNumber="2" wallet="1.9762625833649862e-323"/>
     <associatesList>
         <associates name="
 Bob" employeeNumber="1"/>
+        <associates name="
+Jack
+" employeeNumber="2"/>
     </associatesList>
+    <ordersList/>
 </Root>
