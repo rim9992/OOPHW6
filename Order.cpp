@@ -114,7 +114,7 @@ void Order::printOrder()
 	   {
 		   cout << "\t" << setfill('0') << setw(5) << robotmodels[i] << endl;
 	   }
-	   cout << "subtotal:$" << setprecision(2) << subtotal
+	   cout << "subtotal:$"  << subtotal
 		   << "\nShipping:$" << shipping
 		   << "\nTaxes:$" << tax
 		   << "\nTotal:$" << total << "\n" << endl;
