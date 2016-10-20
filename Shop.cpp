@@ -11,22 +11,86 @@ void Shop::cli()
 		cin >> choice;
 		if (choice == 1)
 		{
-			view.viewModels(models);
+			while (choice != 0)
+			{
+				view.printCreateMenu();
+				cin >> choice;
+
+				if (choice == 1)
+					createOrder();
+				else if (choice == 2)
+					createCustomer();
+				else if (choice == 3)
+					createAssociate();
+				else if (choice == 4)
+					createNewModel();
+				else if (choice == 5)
+					createNewPart();
+			}
+			choice = 1;
 		}
 		else if (choice == 2)
-			createNewModel();
-		else if (choice == 3)
-			createNewPart();
-		else if (choice == 4)
-			createCustomer();
-		else if (choice == 5)
-			createAssociate();
-		else if (choice == 6)
-			createOrder();
+		{
+			while (choice != 0)
+			{
+				view.printReportMenu();
+				cin >> choice;
+				if (choice == 1)
+				{
+					cout << "Orders by Associate (1)"
+						<< "\nOrders by Customer(2)"
+						<< "\nAll(3)" << endl;
+					cin >> choice;
+					if (choice == 1)
+					{
+						view.viewAssociates(associates);
+						cout << "Associate Number:";
+						cin >> choice;
+						try 
+						{
+							SalesAssociate sa = searchAssociates(choice);
+							view.viewAssociateOrders(sa, orders);
 
+						}
+						catch (partNotFound& e)
+						{
+							cout << "The Associate Number was not found\n" << endl;
+						}	
+					}
+					else if (choice == 2)
+					{
+						view.viewCustomers(customers);
+						cout << "Customer Number:";
+						cin >> choice;
+						try 
+						{
+							Customer cust = searchCustomers(choice);
+							view.viewCustomerOrders(cust, orders);
 
+						}
+						catch (partNotFound& e)
+						{
+							cout << "The Customer Number was not found\n" << endl;
+						}
+					}
+					else
+					{
+						view.viewOrders(orders);
+					}				 
+				}
+					
+				else if (choice == 2)
+					view.viewCustomers(customers);
+				else if (choice == 3)
+					view.viewAssociates(associates);
+				else if (choice == 4)
+					view.viewModels(models);
+			}
+			choice = 1;	
+		}		
 	}
 }
+
 
 RobotModel Shop::searchModels(int partNum)
 {
@@ -105,6 +169,33 @@ Arm Shop::searchArms(int partNum) {
 	throw partNotFound();
 }
 
+Customer Shop::searchCustomers(int num) 
+{
+
+	int length = customers.size();
+	int i;
+	for (i = 0; i < length; i++)
+	{
+		if (customers[i].getCustomerNumber() == num)
+			return customers[i];
+	}
+
+	throw partNotFound();
+}
+
+SalesAssociate Shop::searchAssociates(int num)
+{
+	int length = associates.size();
+	int i;
+	for (i = 0; i < length; i++)
+	{
+		if (associates[i].getEmployeeNumber() == num)
+			return associates[i];
+	}
+
+	throw partNotFound();
+}
+
 int Shop::checkInt(string val)
 {
 	int result;
@@ -138,11 +229,11 @@ void Shop::createNewPart()
 
 	string name;
 	string value;
-	int partNumber=NULL;
+	int partNumber=-1;
 	ComponentType componentType;
-	int type = NULL;
-	double weight=NULL;
-	double cost=NULL;
+	int type = -1;
+	double weight=-1;
+	double cost=-1;
 	string description;
 	cout << "Creating a New Part\n___________________\nEnter the Name: ";
 
@@ -151,7 +242,7 @@ void Shop::createNewPart()
 	
 	//Gets and validates input from the user to create a new Robot part
 	
-	while(partNumber==NULL)
+	while(partNumber==-1)
 	{
 		cout << "Part Number: ";
 		cin >> value;
@@ -159,7 +250,7 @@ void Shop::createNewPart()
 	 }
 
 
-	while (weight == NULL)
+	while (weight == -1)
 	{
 		cout << "Weight: ";
 		cin >> value;
@@ -168,7 +259,7 @@ void Shop::createNewPart()
 	}
 
 
-	while (cost == NULL)
+	while (cost == -1)
 	{
 		cout << "Cost: ";
 		cin >> value;
@@ -185,7 +276,7 @@ void Shop::createNewPart()
 	cout << "Head(1)\nArm(2)\nLocomotor(3)\nTorso(4)\nBattery(5)\nComponent Type: ";
 
 
-	while (type == NULL)
+	while (type == -1)
 	{
 		cin >> value;
 		type = checkInt(value);
@@ -193,7 +284,7 @@ void Shop::createNewPart()
 		if (type > 5 || type < 1)
 		{
 			cout << "Integer must be between 1 and 5\n";
-			type = NULL;
+			type = -1;
 		}
 
 	}
@@ -207,8 +298,8 @@ void Shop::createNewPart()
 	}
 	else if (type == 2)
 	{
-		int speed = NULL;
-		while (speed ==NULL)
+		int speed =-1;
+		while (speed ==-1)
 		{
 			cout << "Speed: ";
 			cin >> value;
@@ -222,8 +313,8 @@ void Shop::createNewPart()
 	else if (type == 3)
 	{
 		
-		int speed = NULL;
-		while (speed == NULL)
+		int speed =-1;
+		while (speed == -1)
 		{
 			cout << "Speed: ";
 			cin >> value;
@@ -235,8 +326,8 @@ void Shop::createNewPart()
 	}
 	if (type == 4)
 	{
-		int battery = NULL;
-		while (battery == NULL)
+		int battery = -1;
+		while (battery == -1)
 		{
 			cout << "Number of battery Compartments: ";
 			cin >> value;
@@ -250,8 +341,8 @@ void Shop::createNewPart()
 	 }
 	if (type == 5)
 	{
-		double energy = NULL;
-		while (energy ==NULL)
+		double energy = -1;
+		while (energy ==-1)
 		{
 			cout << "Energy: ";
 			cin >> value;
@@ -259,8 +350,8 @@ void Shop::createNewPart()
 			
 		}
 
-		double power = NULL;
-		while (power == NULL)
+		double power = -1;
+		while (power == -1)
 		{
 			cout << "Power: ";
 			cin >> value;
@@ -283,13 +374,13 @@ void Shop::createNewModel()
 	bool partAdded = false;
 	bool tors = false;
 
-	double price = NULL;
+	double price = -1;
 	int partNumber = -1;
-	int num = NULL;
+	int num = -1;
 	cout << "Enter Name:";
 	getline(cin, name, ':');
 
-	while (num == NULL)
+	while (num == -1)
 	{
 		cout << "Enter Model Part Number:";
 		cin >> value;
@@ -337,7 +428,7 @@ void Shop::createNewModel()
 	//choosing the Arms
 
 	view.viewArms(arms);
-	int armNum = NULL;
+	int armNum = -1;
 		
 
 		while (!partAdded)
@@ -471,7 +562,7 @@ void Shop::createNewModel()
 
 	//Showing the total price of all the chosen parts to determine model price
 	printf("Total Part Cost:$%3.2f\n", newModel.getPartsCost());
-	while (price == NULL)
+	while (price == -1)
 	{
 		cout << "Enter Model Price:";
 		cin >> value;

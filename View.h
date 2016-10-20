@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
+#include <iomanip>
 
 #include "RobotPart.h"
 #include "RobotModel.h"
@@ -15,9 +16,9 @@
 
 using namespace std;
 
-class View{
+class View {
 
-public: 
+public:
 
 
 	void viewHeads(vector<Head> list);
@@ -28,8 +29,12 @@ public:
 	void viewModels(vector<RobotModel> list);
 	void viewCustomers(vector<Customer> list);
 	void viewAssociates(vector<SalesAssociate> list);
+	void viewOrders(vector<Order> list);
+	void viewCustomerOrders(Customer cust, vector<Order> list);
+	void viewAssociateOrders(SalesAssociate assoc, vector<Order> list);
 	void printMenu();
+	void printCreateMenu();
+	void printReportMenu();
 
 };
-
 #endif

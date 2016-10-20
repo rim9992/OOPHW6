@@ -101,6 +101,25 @@ int Order::getCustomer()
 	   return weight;
    }
 
+void Order::printOrder()
+   {
+	   cout << "Order Number:" << OrderNumber
+		   << "\nDate of sale:" << date
+		   << "\nCustomer Number: " << setfill('0') << setw(5) << customers
+		   << "\nAssociate Number:" << setfill('0') << setw(5) << salesassocs
+		   << "\nRobot Models Purchased:" << endl;
+
+	   int bots = robotmodels.size();
+	   for (int i = 0; i < bots; i++)
+	   {
+		   cout << "\t" << setfill('0') << setw(5) << robotmodels[i] << endl;
+	   }
+	   cout << "subtotal:$"  << subtotal
+		   << "\nShipping:$" << shipping
+		   << "\nTaxes:$" << tax
+		   << "\nTotal:$" << total << "\n" << endl;
+   }
+
    void Order::restoreOrder(string inDate, int inCustomers, int inSalesassoc, double inWeight, double inShipping, double inSubtotal, double inTax, double inTotal){
        
     date = inDate;
