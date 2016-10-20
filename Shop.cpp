@@ -1040,35 +1040,6 @@ void Shop::load() {
     }
     
     
-   //<<<<<!!!!!!!!! Add orders !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>>>>>//
-    
-//    // Store orders
-//    pElement = xmlDoc.NewElement("ordersList");
-//    for (int i = 0; i < orders.size(); i++) {
-//        XMLElement * pListElement = xmlDoc.NewElement("orders");
-//        pListElement->SetAttribute("salesassocs", orders[i].getAssociate());
-//        pListElement->SetAttribute("customers", orders[i].getCustomer());
-//        pListElement->SetAttribute("date", stringToChar(orders[i].getDate()));
-//        pListElement->SetAttribute("shipping", orders[i].getShipping());
-//        pListElement->SetAttribute("subtotal", orders[i].getSubtotal());
-//        pListElement->SetAttribute("tax", orders[i].getTax());
-//        pListElement->SetAttribute("weight", orders[i].getWeight());
-//        pListElement->SetAttribute("OrderNumber", orders[i].get_num());
-//        pListElement->SetAttribute("total", orders[i].totalPrice());
-//        
-//        //get the vector of int
-//        for (int j = 0; j < orders[i].robotmodels.size(); i++) {
-//            XMLElement * pListElementVec = xmlDoc.NewElement("robotmodels");
-//            pListElementVec->SetText(orders[i].robotmodels[j]);
-//            
-//            pListElement->InsertEndChild(pListElementVec);
-//        }
-//        
-//        pElement->InsertEndChild(pListElement);
-//    }
-//    pRoot->InsertEndChild(pElement);
-    
-    
     // Load orders
     pElement = pRoot->FirstChildElement("ordersList");
     if (pElement == nullptr) cerr<<"ERROR parsing orders in XML file"<<endl;
