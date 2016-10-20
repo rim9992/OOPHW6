@@ -229,11 +229,11 @@ void Shop::createNewPart()
 
 	string name;
 	string value;
-	int partNumber=NULL;
+	int partNumber=-1;
 	ComponentType componentType;
-	int type = NULL;
-	double weight=NULL;
-	double cost=NULL;
+	int type = -1;
+	double weight=-1;
+	double cost=-1;
 	string description;
 	cout << "Creating a New Part\n___________________\nEnter the Name: ";
 
@@ -242,7 +242,7 @@ void Shop::createNewPart()
 	
 	//Gets and validates input from the user to create a new Robot part
 	
-	while(partNumber==NULL)
+	while(partNumber==-1)
 	{
 		cout << "Part Number: ";
 		cin >> value;
@@ -250,7 +250,7 @@ void Shop::createNewPart()
 	 }
 
 
-	while (weight == NULL)
+	while (weight == -1)
 	{
 		cout << "Weight: ";
 		cin >> value;
@@ -259,7 +259,7 @@ void Shop::createNewPart()
 	}
 
 
-	while (cost == NULL)
+	while (cost == -1)
 	{
 		cout << "Cost: ";
 		cin >> value;
@@ -276,7 +276,7 @@ void Shop::createNewPart()
 	cout << "Head(1)\nArm(2)\nLocomotor(3)\nTorso(4)\nBattery(5)\nComponent Type: ";
 
 
-	while (type == NULL)
+	while (type == -1)
 	{
 		cin >> value;
 		type = checkInt(value);
@@ -284,7 +284,7 @@ void Shop::createNewPart()
 		if (type > 5 || type < 1)
 		{
 			cout << "Integer must be between 1 and 5\n";
-			type = NULL;
+			type = -1;
 		}
 
 	}
@@ -298,8 +298,8 @@ void Shop::createNewPart()
 	}
 	else if (type == 2)
 	{
-		int speed = NULL;
-		while (speed ==NULL)
+		int speed =-1;
+		while (speed ==-1)
 		{
 			cout << "Speed: ";
 			cin >> value;
@@ -313,8 +313,8 @@ void Shop::createNewPart()
 	else if (type == 3)
 	{
 		
-		int speed = NULL;
-		while (speed == NULL)
+		int speed =-1;
+		while (speed == -1)
 		{
 			cout << "Speed: ";
 			cin >> value;
@@ -326,8 +326,8 @@ void Shop::createNewPart()
 	}
 	if (type == 4)
 	{
-		int battery = NULL;
-		while (battery == NULL)
+		int battery = -1;
+		while (battery == -1)
 		{
 			cout << "Number of battery Compartments: ";
 			cin >> value;
@@ -341,8 +341,8 @@ void Shop::createNewPart()
 	 }
 	if (type == 5)
 	{
-		double energy = NULL;
-		while (energy ==NULL)
+		double energy = -1;
+		while (energy ==-1)
 		{
 			cout << "Energy: ";
 			cin >> value;
@@ -350,8 +350,8 @@ void Shop::createNewPart()
 			
 		}
 
-		double power = NULL;
-		while (power == NULL)
+		double power = -1;
+		while (power == -1)
 		{
 			cout << "Power: ";
 			cin >> value;
@@ -374,13 +374,13 @@ void Shop::createNewModel()
 	bool partAdded = false;
 	bool tors = false;
 
-	double price = NULL;
+	double price = -1;
 	int partNumber = -1;
-	int num = NULL;
+	int num = -1;
 	cout << "Enter Name:";
 	getline(cin, name, ':');
 
-	while (num == NULL)
+	while (num == -1)
 	{
 		cout << "Enter Model Part Number:";
 		cin >> value;
@@ -428,7 +428,7 @@ void Shop::createNewModel()
 	//choosing the Arms
 
 	view.viewArms(arms);
-	int armNum = NULL;
+	int armNum = -1;
 		
 
 		while (!partAdded)
@@ -562,7 +562,7 @@ void Shop::createNewModel()
 
 	//Showing the total price of all the chosen parts to determine model price
 	printf("Total Part Cost:$%3.2f\n", newModel.getPartsCost());
-	while (price == NULL)
+	while (price == -1)
 	{
 		cout << "Enter Model Price:";
 		cin >> value;
