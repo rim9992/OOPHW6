@@ -814,6 +814,13 @@ void Shop::save() {
         pListElement->SetAttribute("partsCost", models[i].getPartsCost());
         pListElement->SetAttribute("price", models[i].getPrice());
         pListElement->SetAttribute("description", stringToChar(models[i].getDescription()));
+        pListElement->SetAttribute("torso", models[i].getTorso());
+        pListElement->SetAttribute("head", models[i].getHead());
+        pListElement->SetAttribute("locomotor", models[i].getLocomotor());
+        pListElement->SetAttribute("battery", models[i].getBattery());
+        pListElement->SetAttribute("maxBatteries", models[i].getMaxBatteries());
+        pListElement->SetAttribute("numOfArms", models[i].getnumOfArms());
+        
         //get the vector of int
         for (int j = 0; j < models[i].arms.size(); i++) {
             XMLElement * pListElementVec = xmlDoc.NewElement("arms");
@@ -1064,14 +1071,60 @@ void Shop::load() {
     }
     
     
-//<<<<<!!!!!!!!! Add models !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!>>>>>//
     
+    // Load models
+    pElement = pRoot->FirstChildElement("modelsList");
+    if (pElement == nullptr) cerr<<"ERROR parsing customers in XML file"<<endl;
     
+    pListElement = pElement->FirstChildElement("models");
     
-    
-    
-    
-
+    while (pListElement != nullptr) {
+        int torso, head, locomotor, battery, modelNumber, maxBatteries, numOfArms;
+        double price, partsCost, totalWeight;
+        
+        attributeText = pListElement->Attribute("name");
+        if (attributeText == nullptr) cerr<<"Error loading models text from XML file";
+        name = attributeText;
+        attributeText = pListElement->Attribute("description");
+        if (attributeText == nullptr) cerr<<"Error loading models text from XML file";
+        description = attributeText;
+        eResult = pListElement->QueryIntAttribute("torso", &torso);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("head", &head);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("locomotor", &locomotor);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("battery", &battery);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("modelNumber", &modelNumber);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("maxBatteries", &maxBatteries);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryIntAttribute("numOfArms", &numOfArms);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("price", &price);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("partsCost", &partsCost);
+        XMLCheckResult(eResult);
+        eResult = pListElement->QueryDoubleAttribute("totalWeight", &totalWeight);
+        XMLCheckResult(eResult);
+        
+        // Recycling partNumber 
+        RobotModel model(name, partNumber);
+        
+        // Import vector of ints
+        XMLElement * pListElementVec = pListElement->FirstChildElement("arms");
+        while (pListElementVec != nullptr) {
+            int temp;
+            eResult = pListElementVec->QueryIntText(&temp);
+            XMLCheckResult(eResult);
+            model.arms.push_back(temp);
+        }
+        
+        models.push_back(model);
+        
+        pListElement = pListElement->NextSiblingElement("customers");
+    }
     
     
     
