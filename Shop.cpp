@@ -585,6 +585,12 @@ void Shop::createNewModel()
 
 void Shop::createOrder()
 {	
+	if (models.size() == 0)
+	{
+		cout << "There are no Robot Models. Create a robot Model to create an Order.\n";
+			return;
+	}
+	
 	int num = orders.size() + 1;
 	string value;
 	int more = 1;
