@@ -3,3 +3,7 @@ to get the program to work, run the following steps.
 
     1) copy SalesDataRename.xml to the same directory
     2) Save the copied file as SalesData.xml
+
+
+If you do not do this you will see the following error in the terminal:
+    Error: 3Error loading root in XML file
