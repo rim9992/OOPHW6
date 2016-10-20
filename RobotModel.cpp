@@ -87,3 +87,24 @@ double RobotModel::getWeight() {
 
 	return totalWeight;
 }
+
+
+int RobotModel::getTorso() {
+    return torso;
+}
+int RobotModel::getHead()
+{
+    return head;
+}
+int RobotModel::getLocomotor(){
+    return torso;
+}
+int RobotModel::getBattery(){
+    return locomotor;
+}
+int RobotModel::getMaxBatteries(){
+    return battery;
+}
+int RobotModel::getnumOfArms(){
+    return numOfArms;
+}
