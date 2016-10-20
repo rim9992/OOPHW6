@@ -237,8 +237,8 @@ void Shop::createNewPart()
 	string description;
 	cout << "Creating a New Part\n___________________\nEnter the Name: ";
 
-	//delimeter set at ':' becasuse new line wasnt working. Needs to be fixed. Same situation for the description
-	getline(cin, name,':');
+	cin.ignore();
+	getline(cin, name);
 	
 	//Gets and validates input from the user to create a new Robot part
 	
@@ -271,7 +271,8 @@ void Shop::createNewPart()
 	//determines the type of part and gets more input accordingly
 
 	cout << "Description: ";
-	getline(cin, description,':');
+	cin.ignore();
+	getline(cin, description);
 
 	cout << "Head(1)\nArm(2)\nLocomotor(3)\nTorso(4)\nBattery(5)\nComponent Type: ";
 
@@ -378,7 +379,8 @@ void Shop::createNewModel()
 	int partNumber = -1;
 	int num = -1;
 	cout << "Enter Name:";
-	getline(cin, name, ':');
+	cin.ignore();
+	getline(cin, name);
 
 	while (num == -1)
 	{
@@ -571,7 +573,8 @@ void Shop::createNewModel()
 	newModel.updatePrice(price);
 
 	cout << "Enter Description:";
-	getline(cin, value,':');
+	cin.ignore();
+	getline(cin, value);
 	newModel.setDescription(value);
 
 	models.push_back(newModel);
@@ -678,7 +681,8 @@ void Shop::createCustomer() {
 	num = customers.size()+1;
 
 	printf("Enter Customer name: ");
-	getline(cin, name, ':');
+	cin.ignore();
+	getline(cin, name);
 	Customer cust(name, num);
 	customers.push_back(cust);
         
@@ -693,7 +697,8 @@ void Shop::createAssociate() {
 	num = associates.size() + 1;
 
 	printf("Enter Associate name: ");
-	getline(cin, name, ':');
+	cin.ignore();
+	getline(cin, name);
 	SalesAssociate assoc(name, num);
 	associates.push_back(assoc);
         
