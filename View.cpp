@@ -1,46 +1,83 @@
 #include "View.h"
 
 
-//each one of the functions for viewing the parts needs to be modified to show all the data for each specific part
 void View::viewHeads(vector<Head> list)
 {
 	int length = list.size();
+
+	cout << "Heads\n_____\n\n";
 	for (int i = 0; i < length; i++)
 	{
-		cout <<"Name :" << list[i].getName() << "\nPart Number: " << list[i].getPartNumber() << "\nCost: "<<list[i].getCost()<<endl;
+		cout << "Name :" << list[i].getName()
+			<< "\nPart Number: " << setfill('0') << setw(5) << list[i].getPartNumber()
+			<< "\nCost:$" << list[i].getCost()
+			<< "\nWeight:"  << list[i].getWeight()
+			<< "\nDescription:" << list[i].getDescription() << "\n" << endl;
+
 	}
 }
 
 void View::viewArms(vector<Arm> list)
 {
+	cout << "Arms\n_____\n\n";
 	int length = list.size();
 	for (int i = 0; i < length; i++)
 	{
-		cout << "Name :" << list[i].getName() << "\nPart Number: " << list[i].getPartNumber() << "\nCost: " << list[i].getCost() << endl;
+		cout << "Name :" << list[i].getName()
+			<< "\nPart Number: " << setfill('0') << setw(5) << list[i].getPartNumber()
+			<< "\nCost:$" << list[i].getCost()
+			<< "\nWeight: " << list[i].getWeight()
+			<< "\nDescription:" << list[i].getDescription() 
+			<<"\nSpeed: " <<list[i].powerConsumed()
+			<< "\n" << endl;
 	}
 }
 void View::viewLocomotors(vector<Locomotor> list)
 {
+	cout << "Locomotors\n_____\n\n";
 	int length = list.size();
 	for (int i = 0; i < length; i++)
 	{
-		cout << "Name :" << list[i].getName() << "\nPart Number: " << list[i].getPartNumber() << "\nCost: " << list[i].getCost() << endl;
+		cout << "Name :" << list[i].getName()
+			<< "\nPart Number: " << setfill('0') << setw(5) << list[i].getPartNumber()
+			<< "\nCost:$" << list[i].getCost()
+			<< "\nWeight:" << list[i].getWeight()
+			<< "\nDescription:" << list[i].getDescription() 
+			<<"\nMax Speed: " << list[i].powerConsumed()
+			<< "\n" << endl;
 	}
 }
 void View::viewTorsos(vector<Torso> list)
 {
+
+	cout << "Torsos\n______\n\n";
 	int length = list.size();
 	for (int i = 0; i < length; i++)
 	{
-		cout << "Name :" << list[i].getName() << "\nPart Number: " << list[i].getPartNumber() << "\nCost: " << list[i].getCost() << endl;
+		cout << "Name :" << list[i].getName()
+			<< "\nPart Number: " << setfill('0') << setw(5) << list[i].getPartNumber()
+			<< "\nCost:$" << list[i].getCost()
+			<< "\nWeight"  << list[i].getWeight()
+			<< "\nDescription:" << list[i].getDescription() 
+			<<"\nMax Batteries: "<<list[i].max_batteries()
+			<< "\n" << endl;
+
 	}
 }
 void View::viewBatteries(vector<Battery> list)
 {
+	cout << "Batteries\n________\n\n";
 	int length = list.size();
 	for (int i = 0; i < length; i++)
 	{
-		cout << "Name :" << list[i].getName() << "\nPart Number: " << list[i].getPartNumber() << "\nCost: " << list[i].getCost() << endl;
+		cout << "Name :" << list[i].getName()
+			<< "\nPart Number: " << setfill('0') << setw(5) << list[i].getPartNumber()
+			<< "\nCost: " << list[i].getCost()
+			<< "\nWeight:" << list[i].getWeight()
+			<< "\nDescription:" << list[i].getDescription() 
+			<< "\nEnergy: "<< list[i].getEnergy()
+			<<"\nMax Power: "<<list[i].getMaxPower()
+			<< "\n" << endl;
 	}
 }
 
@@ -50,8 +87,11 @@ void View::viewModels(vector<RobotModel> list)
 	int length = list.size();
 	for (int i = 0; i < length; i++)
 	{
-		cout << "Name: " << list[i].getName() << "\nPrice:$" << list[i].getPrice() << "\nDescription:" << list[i].getDescription() 
-		<<"\nModel Number: "<< list[i].getModelNumber() <<"\n"<< endl;
+		cout << "Name: " << list[i].getName() 
+			 << "\nPrice:$" << list[i].getPrice() 
+			 << "\nDescription:" << list[i].getDescription() 
+		     <<"\nModel Number: "<< list[i].getModelNumber() 
+			 <<"\n"<< endl;
 	}
 }
 
