@@ -733,6 +733,8 @@ void Shop::createOrder()
 	od.calculateTax();
 
 	printf("Total Price (includeing tax and shipping): $%3.2f\n", od.totalPrice());
+	
+	od.set_date();
 
 	orders.push_back(od);
 	
