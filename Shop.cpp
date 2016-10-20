@@ -1166,11 +1166,12 @@ void Shop::load() {
         XMLCheckResult(eResult);
         eResult = pListElement->QueryDoubleAttribute("partsCost", &partsCost);
         XMLCheckResult(eResult);
-        eResult = pListElement->QueryDoubleAttribute("totalWeight", &totalWeight);
+        eResult = pListElement->QueryDoubleAttribute("weight", &totalWeight);
         XMLCheckResult(eResult);
         
         // Recycling partNumber 
-        RobotModel model(name, partNumber);
+        RobotModel model(name, modelNumber);
+        model.restoreValues(torso, head, locomotor, battery, name, description, modelNumber, price, maxBatteries, numOfArms, partsCost, totalWeight);
         
         // Import vector of ints
         XMLElement * pListElementVec = pListElement->FirstChildElement("arms");
@@ -1179,6 +1180,8 @@ void Shop::load() {
             eResult = pListElementVec->QueryIntText(&temp);
             XMLCheckResult(eResult);
             model.arms.push_back(temp);
+            
+            pListElementVec = pListElementVec->NextSiblingElement("arms");
         }
         
         models.push_back(model);
@@ -1209,12 +1212,14 @@ void Shop::load() {
         customer.setWallet(wallet);
         
         // Import vector of ints
-        XMLElement * pListElementVec = pListElement->FirstChildElement("Orders");
+        XMLElement * pListElementVec = pListElement->FirstChildElement("orders");
         while (pListElementVec != nullptr) {
             int temp;
             eResult = pListElementVec->QueryIntText(&temp);
             XMLCheckResult(eResult);
             customer.orders.push_back(temp);
+            
+            pListElementVec = pListElementVec->NextSiblingElement("orders");
         }
         
         customers.push_back(customer);
@@ -1241,12 +1246,14 @@ void Shop::load() {
         SalesAssociate associate(name, partNumber);
         
         // Import vector of ints
-        XMLElement * pListElementVec = pListElement->FirstChildElement("Orders");
+        XMLElement * pListElementVec = pListElement->FirstChildElement("orders");
         while (pListElementVec != nullptr) {
             int temp;
             eResult = pListElementVec->QueryIntText(&temp);
             XMLCheckResult(eResult);
             associate.orders.push_back(temp);
+            
+            pListElementVec = pListElementVec->NextSiblingElement("orders");
         }
         
         associates.push_back(associate);
