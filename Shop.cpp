@@ -882,7 +882,7 @@ void Shop::save() {
         pListElement->SetAttribute("numOfArms", models[i].getnumOfArms());
         
         //get the vector of int
-        for (int j = 0; j < models[i].arms.size(); i++) {
+        for (int j = 0; j < models[i].arms.size(); j++) {
             XMLElement * pListElementVec = xmlDoc.NewElement("arms");
             pListElementVec->SetText(models[i].arms[j]);
             
@@ -902,7 +902,7 @@ void Shop::save() {
         pListElement->SetAttribute("customerNumber", customers[i].getCustomerNumber());
         pListElement->SetAttribute("wallet", customers[i].getWallet());
         //get the vector of int
-        for (int j = 0; j < customers[i].orders.size(); i++) {
+        for (int j = 0; j < customers[i].orders.size(); j++) {
             XMLElement * pListElementVec = xmlDoc.NewElement("orders");
             pListElementVec->SetText(customers[i].orders[j]);
             
@@ -921,7 +921,7 @@ void Shop::save() {
         pListElement->SetAttribute("name", stringToChar(associates[i].getName()));
         pListElement->SetAttribute("employeeNumber", associates[i].getEmployeeNumber());
         //get the vector of int
-        for (int j = 0; j < associates[i].orders.size(); i++) {
+        for (int j = 0; j < associates[i].orders.size(); j++) {
             XMLElement * pListElementVec = xmlDoc.NewElement("orders");
             pListElementVec->SetText(associates[i].orders[j]);
             
@@ -948,7 +948,7 @@ void Shop::save() {
         pListElement->SetAttribute("total", orders[i].totalPrice());
         
         //get the vector of int
-        for (int j = 0; j < orders[i].robotmodels.size(); i++) {
+        for (int j = 0; j < orders[i].robotmodels.size(); j++) {
             XMLElement * pListElementVec = xmlDoc.NewElement("robotmodels");
             pListElementVec->SetText(orders[i].robotmodels[j]);
             
