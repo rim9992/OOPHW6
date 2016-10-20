@@ -34,7 +34,6 @@ string RobotModel::getDescription() {
 
 
 void RobotModel::setTorso(Torso tor) {
-	if (torso != NULL) throw partAlreadySet{};
 
 	torso = tor.getPartNumber();
 	maxBatteries = tor.max_batteries();
@@ -45,7 +44,6 @@ void RobotModel::setTorso(Torso tor) {
 }
 
 void RobotModel::setHead(Head part_head){
-	if (head != NULL) throw partAlreadySet{};
 
 	head = part_head.getPartNumber();
 	partsCost += part_head.getCost();
@@ -56,7 +54,6 @@ void RobotModel::setHead(Head part_head){
 }
 
 void RobotModel::addArm(Arm arm){
-	if (numOfArms == 2) throw partAlreadySet{};
 
 	arms.push_back(arm.getPartNumber());
 	numOfArms++;
@@ -66,7 +63,7 @@ void RobotModel::addArm(Arm arm){
 }
 
 void RobotModel::setLocomotor(Locomotor loco) {
-	if (locomotor != NULL) throw partAlreadySet{};
+	
 	locomotor = loco.getPartNumber();
 	partsCost += loco.getCost();
 	totalWeight += loco.getWeight();
@@ -75,8 +72,6 @@ void RobotModel::setLocomotor(Locomotor loco) {
 
 void RobotModel::setBatteries(Battery batteries) {
 	
-	if (battery != NULL) throw partAlreadySet{};
-	if (torso == NULL) throw noTorso{};
 
 	battery = batteries.getPartNumber();
 	partsCost += batteries.getCost()*maxBatteries;
@@ -108,3 +103,4 @@ int RobotModel::getMaxBatteries(){
 int RobotModel::getnumOfArms(){
     return numOfArms;
 }
+

@@ -3,18 +3,45 @@
 
 void Shop::cli()
 {
-	int choice = 1;
+	int choice = -1;
+	string value;
 
 	while (choice != 0)
 	{
 		view.printMenu();
-		cin >> choice;
+
+
+		while (choice == -1)
+		{
+
+			cin >> value;
+			choice = checkInt(value);
+			if ((choice > 2 || choice < 0)&&choice!=-1)
+			{
+				cout << "The number you have enter is not one of the options\nTry Again:";
+				choice = -1;
+			}
+		}
+
 		if (choice == 1)
 		{
+			
 			while (choice != 0)
 			{
+
 				view.printCreateMenu();
-				cin >> choice;
+				choice = -1;
+				while (choice == -1)
+				{
+
+					cin >> value;
+					choice = checkInt(value);
+					if ((choice > 5 || choice < 0) && choice != -1)
+					{
+						cout << "The number you have enter is not one of the options\nTry Again:";
+						choice = -1;
+					}
+				}
 
 				if (choice == 1)
 					createOrder();
@@ -26,21 +53,47 @@ void Shop::cli()
 					createNewModel();
 				else if (choice == 5)
 					createNewPart();
+
 			}
-			choice = 1;
+			choice = -1;
+
 		}
 		else if (choice == 2)
 		{
 			while (choice != 0)
 			{
+
 				view.printReportMenu();
-				cin >> choice;
+				choice = -1;
+				while (choice == -1)
+				{
+
+					cin >> value;
+					choice = checkInt(value);
+					if ((choice > 4 || choice < 0) && choice != -1)
+					{
+						cout << "The number you have enter is not one of the options\nTry Again:";
+						choice = -1;
+					}
+				}
 				if (choice == 1)
 				{
 					cout << "Orders by Associate (1)"
 						<< "\nOrders by Customer(2)"
 						<< "\nAll(3)" << endl;
-					cin >> choice;
+
+					choice = -1;
+					while (choice == -1)
+					{
+
+						cin >> value;
+						choice = checkInt(value);
+						if ((choice > 3 || choice < 1) && choice != -1)
+						{
+							cout << "The number you have enter is not one of the options\nTry Again:";
+							choice = -1;
+						}
+					}
 					if (choice == 1)
 					{
 						view.viewAssociates(associates);
@@ -55,7 +108,9 @@ void Shop::cli()
 						catch (partNotFound& e)
 						{
 							cout << "The Associate Number was not found\n" << endl;
-						}	
+						}
+						
+						
 					}
 					else if (choice == 2)
 					{
@@ -72,11 +127,14 @@ void Shop::cli()
 						{
 							cout << "The Customer Number was not found\n" << endl;
 						}
+						
+
 					}
 					else
 					{
 						view.viewOrders(orders);
-					}				 
+					}
+					 
 				}
 					
 				else if (choice == 2)
@@ -86,11 +144,13 @@ void Shop::cli()
 				else if (choice == 4)
 					view.viewModels(models);
 			}
-			choice = 1;	
-		}		
+			choice = -1;
+			
+		}
+		
+
 	}
 }
-
 
 RobotModel Shop::searchModels(int partNum)
 {
