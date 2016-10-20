@@ -26,9 +26,6 @@ public:
 	RobotModel(string Name, int ModelNumber) : name(Name),
 		modelNumber(ModelNumber) {}
 
-	class noTorso {};
-	class partAlreadySet {};
-
 	double getPrice();
 	string getName();
 	int getModelNumber();
