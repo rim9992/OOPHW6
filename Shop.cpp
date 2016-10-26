@@ -1305,6 +1305,8 @@ void Shop::load() {
             eResult = pListElementVec->QueryIntText(&temp);
             XMLCheckResult(eResult);
             order.robotmodels.push_back(temp);
+            
+            pListElementVec = pListElementVec->NextSiblingElement("robotmodels");
         }
         
         orders.push_back(order);
